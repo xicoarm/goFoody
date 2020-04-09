@@ -1,122 +1,217 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>FitFit</title>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'asd') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
     <!-- Styles -->
-    {{--    <link rel="stylesheet" href="{{ asset('css/app.css') }}">--}}
-    <link href="/css/app.css" rel="stylesheet">
-    {{--    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">--}}
-    {{--    <link href="/css/app.css" rel="stylesheet">--}}
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
 <body>
-<header style="max-width: 100%;">
+<header>
 
-    <div class="top-nav container">
-        <div style="color: black; max-width: 100%" class="logo">FitFit</div>
 
-        <div style="position:relative; right: 10%; max-width: 150%">
-            <ul>
-                <li><a style="margin: 28px;font-weight: bold; color:black;" href="/welcome">Home</a></li>
-{{--                <li><a style="margin: 20px;font-weight: bold; color:black;" href="#">Über uns</a></li>--}}
-                <li><a style="margin: 28px;font-weight: bold; color:black;" href="/shop-Auswahl">Shop</a></li>
-                <li><a style="margin: 28px;font-weight: bold; color:black;" href="#">Blog</a></li>
-                <li><a style="margin: 28px;font-weight: bold; color:black;" href="#">Cart</a></li>
-            </ul>
-        </div>
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container">
 
-    </div> <!-- end top-nav -->
 
+                <a style="position: relative; left: 45%" class="navbar-brand" href="{{ url('/welcome') }}">
+                    <img style="width: 150px" src="/imagenes/logogofoody.png">
+                    {{--                    {{ config('app.name', 'asd') }}--}}
+
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
+                        <ul class="navbar-nav mr-auto">
+                            <!-- Authentication Links -->
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/shop">Menu</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/shop-Auswahl">Wochenpläne</a>
+                            </li>
+                        </ul>
+
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="py-4">
+            {{--            @yield('content')--}}
+        </main>
+    </div>
 </header>
 
 
-<div class="mm" style="position:relative; left: 10% ;margin-right: 5%;height: 80%;">
+
+<div>
         @csrf
 
-    <div style="position:absolute; top: 5%; right: 80%">
+    <div>
         <h1> Ihre Bestellung </h1>
     </div>
 
-    <div style="position:absolute; top: 15%; left: 6%">
-        @include('overviewBack')
+    <div>
+
         <h2>
         <?php
+//
+
 
         $orders= $_SESSION["orderarray"];
 
-        foreach($orders as $result) {
-            echo $result, '  <br>';
-        }
 
-        echo '<br>';
-            echo "Total (inkl. MwSt.) ";
-        ?>
+//        foreach($orders as $result) {
+//            echo $result, '  <br>';
+//        }
+
+//        echo '<br>';
+//            echo "Total (inkl. MwSt.) ";
+//        ?>
         </h2>
 
     </div>
 
 
-    <div style="position:absolute; top: 5%; right: 80%">
+    <div >
 
-    </div>
-
-    <div style="position:absolute; top: 15%; left: 25%">
-
-        <h2>
+        <h4>
             <?php
+            echo "<br>";
+            echo "<br>";
             $prices= $_SESSION["pricearray"];
             $orders= $_SESSION["orderarray"];
 
-            foreach($prices as $result) {
-            echo $result, ' CHF <br>';
+            $cart= $_SESSION['cart'];
+//            echo 1;
+//            echo $cart->getItems();
 
+            $items = $cart->items();
+
+            foreach($items as $result) {
+            echo $result->name;
+            echo " - x";
+            echo $result->quantity;
             }
-            echo '<br>';
-            echo array_sum($prices), ' CHF' ;
+              echo "<br>";
+            echo "<br>";
+            echo "Total: ";
+            echo $cart->getTotal();
+            echo " CHF (inkl. MwSt)";
+
+//            echo $_SESSION['cart']->getItems();
             ?>
-        </h2>
+        </h4>
 
     </div>
 
 
     <br>
             <script src="https://js.stripe.com/v3/"></script>
-
+        <div>
         <form action="/Bezahlung-erfolgreich-Danke!" method="post" id="payment-form">
             @csrf
 
-            <div style="position:absolute; top: 1%; right: 15%">
+            <div>
             <div class="form-style-8">
                 @guest
                 <h2>Über Sie</h2>
 
                     <input name="vorname" type="text" placeholder="Vorname*" required />
-                    <input name="nachname" type="text" placeholder="Nachname*" />  //requiredrequiredrequiredrequired
-                    <input name="lieferadresse" type="text" placeholder="Lieferadresse*" />
-                    <input name="stadt" type="text"  placeholder="Stadt*"/>
-                    <input name="plz" type="text" placeholder="PLZ*"/>
+                    <input name="nachname" type="text" placeholder="Nachname*" required/>
+                    <input name="lieferadresse" type="text" placeholder="Lieferadresse*" required/>
+                    <input name="stadt" type="text"  placeholder="Stadt*"required/>
+                    <input name="plz" type="text" placeholder="PLZ*"required/>
                     <br>
-                    <input name="email" type="email"  placeholder="Email" />
-                    <input type="text" name="handynummer"  placeholder="Handynummer" />
+                    <input name="email" type="email"  placeholder="Email" required/>
+                    <input type="text" name="handynummer"  placeholder="Handynummer" required/>
                     <textarea placeholder="Kommentare" onkeyup="adjust_textarea(this)"></textarea>
 
             </div>
                 @endguest
 
+                @if (Auth::check())
+
+                    <div>
+                    <h2>Über Sie</h2>
+
+                    <input name="vorname" type="text" value="{{Auth::user()->name}}" placeholder="Vorname*" required />
+                    <input name="nachname" type="text" value="{{Auth::user()->nachname}}" placeholder="Nachname*" required/>
+                    <input name="lieferadresse" type="text"value="{{Auth::user()->adresse}}" placeholder="Lieferadresse*" required/>
+                    <input name="stadt" type="text" value="{{Auth::user()->stadt}}" placeholder="Stadt*"required/>
+                    <input name="plz" type="text" value="{{Auth::user()->plz}}"  placeholder="PLZ*" required/>
+                    <br>
+                    <input name="email" type="email" value="{{Auth::user()->email}}" placeholder="Email" required/>
+                    <input type="text" name="handynummer"  placeholder="Handynummer" required />
+                    <textarea placeholder="Kommentare" onkeyup="adjust_textarea(this)"></textarea>
+
+                    </div>
+                @endif
+
+            </div>
 
                     <div class="form-style-8k">
                         <h2>halloo</h2>
                     </div>
 
-                @endif
+
 
             <div class="form-style-8k">
                 <h2>Bezahlung</h2>
@@ -132,14 +227,14 @@
 
                 <!-- Used to display form errors. -->
                 <div id="card-errors" role="alert"></div>
-                <input class="button1" value="<?php echo array_sum($_SESSION['pricearray'])?>CHF Bezahlen" type="submit">
+                <input class="button1" value="<?php echo array_sum($_SESSION['pricearray'])?> CHF Bezahlen" type="submit">
             </div>
 
-            </div>
+
 </form>
 </div>
 
-</body>
+
 
 
 
@@ -169,8 +264,7 @@
         </div> <!-- end blog-posts -->
     </div> <!-- end container -->
 </div> <!-- end blog-section -->
-</div>
-</body>
+
 
 <footer style="background-color: lightgray">
     <div class="footer-content container">
@@ -184,7 +278,10 @@
         </ul>
     </div> <!-- end footer-content -->
 </footer>
+</div>
+</body>
 </html>
+
 
 
 
@@ -264,6 +361,14 @@
         form.appendChild(hiddenInput);
 
         // Submit the form
+
+
+        <?php
+
+        $cart->clear();
+
+        ?>
+
         form.submit();
     }
 
@@ -273,8 +378,8 @@
 
 </script>
 
-<?php
 
+<?php
 if(isset($_POST['vorname'])){
 
     $vorname= $_POST['vorname'];
@@ -285,5 +390,7 @@ if(isset($_POST['vorname'])){
     $email= $_POST['email'];
     $handynummer= $_POST['handynummer'];
 }
-
 ?>
+
+
+

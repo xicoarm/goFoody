@@ -114,19 +114,39 @@
             </div>
 
 
-            <div class="products text-center">
+            <div class="mm3-column">
                 {{--            <div class="product">--}}
 
                 {{--                <table class="table table-bordered">--}}
 
                 <?php
                 $connect = mysqli_connect("localhost", "root", "", "db");
-                $query = "SELECT * FROM produccts ORDER BY RAND()";
+
+
+                if(isset($_SESSION['timer']))
+                {$time = Carbon\Carbon::now();   // timer to refresh order
+                    session_start();
+                    $a=(string)($time);
+                    echo $a;
+                    echo $a[14];
+                    if($a==$_SESSION['timer']){
+                        $query = "SELECT * FROM produccts";
+                    }
+                }
+                else{
+                    $time = Carbon\Carbon::now();
+                    $b=(string)($time);
+                    $_SESSION['timer']=$b[14];
+                    $query = "SELECT * FROM produccts ORDER BY RAND()";
+                }
+
+
                 $result = mysqli_query($connect, $query);
 
                 while($row = mysqli_fetch_array($result))
                 {           $i = 0;
                     $ii=0;
+                    $link= str_replace(' ', '-', $row['name']);
                     $_SESSION['i'] = 0;
                     $i=0;
                     $_SESSION['ii'] = 0;
@@ -150,7 +170,7 @@
 
             </div>
                         <h2 style="color: black;">'.$row['name'].'</h2>
-                        <h2 style="color: black;">'.$row['description1'].'</h2>
+
 
 
 
@@ -194,17 +214,14 @@
 
                 <a type="button" class="button6" > '.$row['description2'].' </a>
 
-                <a href="/welcome" class="button6"> '.$row['description2'].' </a>
-                <a href="/welcome" class="button6"> '.$row['description2'].' </a>
 
             </div>
 
      ';}
 
                     echo '<div>
-                                    <a id = "'.$row['name'].'" onclick="addtocart(this.id)"  class="button5"> - </a>
 
-                                    <a href="/welcome" class="button5"> + </a>
+                                   <a href="/shop/'.$link.'" class="button5"> Gericht wählen </a>
 
 
 

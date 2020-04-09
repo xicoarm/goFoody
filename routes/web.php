@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -43,7 +46,7 @@ Route::post('/Bezahlung-erfolgreich-Danke!', 'PaymentController@index');
 
 Route::post('/overview', function () {
 //    $_POST['a2']
-    return view('overview');
+    return view('overviewBack');
 });
 
 //Route::post('/overview', 'OverviewController@index');
@@ -92,18 +95,25 @@ Route::get('cart/add/{id}', [
 
 //injeccion de dependencias que facilita LARAVEL
 
-Route::bind('product', function($slug){
+//Route::bind('product', function($slug){
+//
+//   return App\Product::where('slug, $slig')->first();
+//});
 
-   return App\Product::where('slug, $slig')->first();
+
+Route::get('/shop/{product}', 'ProductController@index');
+
+
+//Route::post('/sample-product-back', 'ProductController@second');
+
+Route::post('/sample-product-back',function () {
+    return view('sample-product-back');
 });
 
-
-
-
-
-
-
-
+//Route::post('/sample-product-back', function () {
+//
+//    return view('sample-product-back');
+//});
 
 
 

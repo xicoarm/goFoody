@@ -2,33 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-//    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-//    public function __construct()
-//    {
-//        $this->middleware('auth');
-//    }
+    public function index($product){
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-//    public function index($id)
-//    {
-//        $product = Product::find($id);
-//
-//    }
+
+        $_SESSION['prodname'] = $product;
+
+
+        return view('sample-product')->with('product', $product);
+
+    }
+
+
+    public function second(Request $product){
+
+
+        return view('sample-product-back')->with('product', $product->all());
+
+    }
+
+
+
 
 }
-
-?>
-
 

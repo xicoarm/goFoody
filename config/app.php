@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'goFOODY'),
+    'name' => env('APP_NAME', 'BigFOODY'),
 
     /*
     |--------------------------------------------------------------------------
@@ -139,7 +139,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-//        Anam\Phpcart\CartServiceProvider,
+
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
