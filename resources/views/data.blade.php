@@ -3,7 +3,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 Use PHPMailer\PHPMailer\SMTP;
-
+$_SESSION['datecode'] = date('dmYhm');
 $vorname= $_POST['vorname'];
 $nachname= $_POST['nachname'];
 $lieferadresse= $_POST['lieferadresse'];
@@ -42,10 +42,11 @@ try {
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
 
-    $c=base_path('resources/views/gg.blade.php');
+    $c=base_path('resources/views/subjectMail.php');
 
     ob_start();
     include($c);
+
     $message1 = ob_get_contents();
 //    ob_end();
 
@@ -71,6 +72,8 @@ try {
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
-
+$cart->clear();
+$_SESSION['cart']->clear();
+redirect()->to('paymentOK')->send();
 
 ?>

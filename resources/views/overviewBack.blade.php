@@ -3,23 +3,85 @@
 
 use Anam\Phpcart\Cart;
 
-if(isset($_POST['m1']) and isset($_POST['a1']) and !isset($_POST['m2'])
-and !isset($_POST['a2'])) {
-    SESSION_START();
 
 
+// 5x2
+
+
+
+    if(isset($_SESSION['selectsize'])){
+        $selectsize = $_SESSION['selectsize'];
+    }
+    else{
+        $selectsize = "no-reference"; /////////////// select size of 5x2 plan
+    }
+
+    if(isset($_POST['m1'])){
     $_SESSION['valm1'] = $_POST['m1'];
     $valm1 = $_SESSION["valm1"];
+}
+if(isset($_POST['s1'])){
+    $_SESSION['vals1'] = $_POST['s1'];
+    $vals1 = $_SESSION["vals1"];
+}
 
-
+    if(isset($_POST['a1'])){
     $_SESSION['vala1'] = $_POST['a1'];
-    $vala1 = $_SESSION["vala1"];
+    $vala1 = $_SESSION["vala1"];}
 
-//    $_SESSION['valm2']= $_POST['m2'];
-//    $valm2 = $_SESSION["valm2"];
-//
-//    $_SESSION['vala2']= $_POST['a2'];
-//    $vala2 = $_SESSION["vala2"];
+        if(isset($_POST['m2'])){
+    $_SESSION['valm2']= $_POST['m2'];
+    $valm2 = $_SESSION["valm2"];}
+
+if(isset($_POST['s2'])){
+    $_SESSION['vals2'] = $_POST['s2'];
+    $vals2 = $_SESSION["vals2"];
+}
+
+            if(isset($_POST['a2'])){
+    $_SESSION['vala2']= $_POST['a2'];
+    $vala2 = $_SESSION["vala2"];
+}
+                if(isset($_POST['m3'])){
+    $_SESSION['valm3'] = $_POST['m3'];
+    $valm3 = $_SESSION["valm3"];}
+
+if(isset($_POST['s3'])){
+    $_SESSION['vals3'] = $_POST['s3'];
+    $vals3 = $_SESSION["vals3"];
+}
+
+                    if(isset($_POST['a3'])){
+    $_SESSION['vala3'] = $_POST['a3'];
+    $vala3 = $_SESSION["vala3"];}
+                        if(isset($_POST['m4'])){
+    $_SESSION['valm4']= $_POST['m4'];
+    $valm4 = $_SESSION["valm4"];}
+
+if(isset($_POST['s4'])){
+    $_SESSION['vals4'] = $_POST['s4'];
+    $vals4 = $_SESSION["vals4"];
+}
+                            if(isset($_POST['a4'])){
+    $_SESSION['vala4']= $_POST['a4'];
+    $vala4 = $_SESSION["vala4"];}
+
+                                if(isset($_POST['m5'])){
+    $_SESSION['valm5'] = $_POST['m5'];
+    $valm5 = $_SESSION["valm5"];}
+
+if(isset($_POST['s5'])){
+    $_SESSION['vals5'] = $_POST['s5'];
+    $vals5 = $_SESSION["vals5"];
+}
+
+                                    if(isset($_POST['a5'])){
+    $_SESSION['vala5'] = $_POST['a5'];
+    $vala5 = $_SESSION["vala5"];
+}
+
+
+
 
 
 
@@ -44,57 +106,327 @@ and !isset($_POST['a2'])) {
         die("Connection failed: " . $conn->connect_error);
     }
 
+    $p='plan';
+
     if ($result = $conn->query("SELECT name,price FROM produccts where name='$valm1'")) {
 
         while ($news = mysqli_fetch_assoc($result)) {
 
-            array_push($orderarray, $news['name']);
-            array_push($pricearray, $news['price']);
 
             $cart->add([
-                'id'       => $news['name'],
+                'id'       => $valm1.$p,
                 'name'     => $news['name'],
                 'quantity' => 1,
                 'price'    => $news['price'],
+                'size'      => $selectsize
             ]);
 
 
         }
     }
 
+if (isset($vals1)) {
+    if( $result = $conn->query("SELECT name,price FROM produccts where name='$vals1'")) {
 
-    if ($result = $conn->query("SELECT name,price FROM produccts where name='$vala1'")) {
+
 
         while ($news = mysqli_fetch_assoc($result)) {
-            array_push($orderarray, $vala1);
-            array_push($pricearray, $news['price']);
+
 
             $cart->add([
-                'id'       => $news['name'],
-                'name'     => $news['name'],
+                'id'       => $vals1.$p,
+                'name'     => $vals1,
                 'quantity' => 1,
                 'price'    => $news['price'],
+                'size'      => $selectsize
+            ]);
+
+
+        }
+    }
+}
+
+
+
+    if (isset($vala1)) {
+        if( $result = $conn->query("SELECT name,price FROM produccts where name='$vala1'")) {
+
+
+
+        while ($news = mysqli_fetch_assoc($result)) {
+
+
+            $cart->add([
+                'id'       => $vala1.$p,
+                'name'     => $vala1,
+                'quantity' => 1,
+                'price'    => $news['price'],
+                'size'      => $selectsize
+            ]);
+
+
+        }
+    }
+    }
+
+    if ($result = $conn->query("SELECT name,price FROM produccts where name='$valm2'")) {
+
+        while ($news = mysqli_fetch_assoc($result)) {
+
+
+            $cart->add([
+                'id'       => $valm2.$p,
+                'name'     => $valm2,
+                'quantity' => 1,
+                'price'    => $news['price'],
+                'size'      => $selectsize
+            ]);
+
+
+        }
+    }
+
+
+if (isset($vals2)) {
+    if( $result = $conn->query("SELECT name,price FROM produccts where name='$vals2'")) {
+
+
+
+        while ($news = mysqli_fetch_assoc($result)) {
+
+
+            $cart->add([
+                'id'       => $vals2.$p,
+                'name'     => $vals2,
+                'quantity' => 1,
+                'price'    => $news['price'],
+                'size'      => $selectsize
+            ]);
+
+
+        }
+    }
+}
+
+if (isset($vala2)) {
+    if ($result = $conn->query("SELECT name,price FROM produccts where name='$vala2'")) {
+
+        while ($news = mysqli_fetch_assoc($result)) {
+
+
+            $cart->add([
+                'id'       => $vala2.$p,
+                'name'     => $vala2,
+                'quantity' => 1,
+                'price'    => $news['price'],
+                'size'      => $selectsize
+            ]);
+
+
+        }
+    }
+}
+
+
+
+
+
+
+
+    if ($result = $conn->query("SELECT name,price FROM produccts where name='$valm3'")) {
+
+        while ($news = mysqli_fetch_assoc($result)) {
+
+            $cart->add([
+                'id'       => $valm3.$p,
+                'name'     => $valm3,
+                'quantity' => 1,
+                'price'    => $news['price'],
+                'size'      => $selectsize
             ]);
         }
     }
 
+
+
+if (isset($vals3)) {
+    if( $result = $conn->query("SELECT name,price FROM produccts where name='$vals3'")) {
+
+
+
+        while ($news = mysqli_fetch_assoc($result)) {
+
+
+            $cart->add([
+                'id'       => $vals3.$p,
+                'name'     => $vals3,
+                'quantity' => 1,
+                'price'    => $news['price'],
+                'size'      => $selectsize
+            ]);
+
+
+        }
+    }
+}
+
+
+
+
+    if (isset($vala3)) {
+    if ($result = $conn->query("SELECT name,price FROM produccts where name='$vala3'")) {
+
+        while ($news = mysqli_fetch_assoc($result)) {
+
+
+            $cart->add([
+                'id'       => $vala3.$p,
+                'name'     => $vala3,
+                'quantity' => 1,
+                'price'    => $news['price'],
+                'size'      => $selectsize
+            ]);
+        }
+    }}
+
+
+    if ($result = $conn->query("SELECT name,price FROM produccts where name='$valm4'")) {
+
+        while ($news = mysqli_fetch_assoc($result)) {
+
+
+            $cart->add([
+                'id'       => $valm4.$p,
+                'name'     => $valm4,
+                'quantity' => 1,
+                'price'    => $news['price'],
+                'size'      => $selectsize
+            ]);
+        }
+    }
+
+
+if (isset($vals4)) {
+    if( $result = $conn->query("SELECT name,price FROM produccts where name='$vals4'")) {
+
+
+
+        while ($news = mysqli_fetch_assoc($result)) {
+
+
+            $cart->add([
+                'id'       => $vals4.$p,
+                'name'     => $vals4,
+                'quantity' => 1,
+                'price'    => $news['price'],
+                'size'      => $selectsize
+            ]);
+
+
+        }
+    }
+}
+
+
+
+
+        if (isset($vala4)) {
+    if ($result = $conn->query("SELECT name,price FROM produccts where name='$vala4'")) {
+
+        while ($news = mysqli_fetch_assoc($result)) {
+
+
+            $cart->add([
+                'id'       => $vala4.$p,
+                'name'     => $vala4,
+                'quantity' => 1,
+                'price'    => $news['price'],
+                'size'      => $selectsize
+            ]);
+        }
+    }}
+
+    if ($result = $conn->query("SELECT name,price FROM produccts where name='$valm5'")) {
+
+        while ($news = mysqli_fetch_assoc($result)) {
+
+            $cart->add([
+                'id'       => $valm5.$p,
+                'name'     => $valm5,
+                'quantity' => 1,
+                'price'    => $news['price'],
+                'size'      => $selectsize
+            ]);
+        }
+    }
+
+
+if (isset($vals5)) {
+    if( $result = $conn->query("SELECT name,price FROM produccts where name='$vals5'")) {
+
+
+
+        while ($news = mysqli_fetch_assoc($result)) {
+
+
+            $cart->add([
+                'id'       => $vals5.$p,
+                'name'     => $vals5,
+                'quantity' => 1,
+                'price'    => $news['price'],
+                'size'      => $selectsize
+            ]);
+
+
+        }
+    }
+}
+
+
+
+
+            if (isset($vala5)) {
+    if ($result = $conn->query("SELECT name,price FROM produccts where name='$vala5'")) {
+
+        while ($news = mysqli_fetch_assoc($result)) {
+
+
+            $cart->add([
+                'id'       => $vala5.$p,
+                'name'     => $vala5,
+                'quantity' => 1,
+                'price'    => $news['price'],
+                'size'      => $selectsize
+            ]);
+        }
+    }
+    }
 
 
 
 //    $vaal= (string) date('mdYHis', time());
     $_SESSION['pricearray'] = $pricearray;
     $_SESSION['orderarray'] = $orderarray;
+
     $_SESSION['datecode'] = date('dmYhm');
+
+
+
 
     $_SESSION['cart'] = $cart;
     $conn->close();
 
 //    $_SESSION["color"] = "red";
 //    header("Refresh:0; url=seno");
-}
+
+
 
 echo view('overview');
 
 ?>
 
-
+<script>
+if ( window.history.replaceState ) {
+window.history.replaceState( null, null, window.location.href );
+}
+</script>

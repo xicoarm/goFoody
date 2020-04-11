@@ -1,5 +1,6 @@
 <?php
 
+
 $conn = new mysqli("localhost", "root", "", "db");
 // Check connection
 if ($conn->connect_error) {
@@ -13,7 +14,7 @@ $result = $conn->query("SELECT name,price,description1,i1,protein,carbs,fett,kal
 $row = mysqli_fetch_assoc($result);
 
 
-session_start();
+
 $_SESSION['price']=$row['price'];
 $_SESSION['name']=$row['name'];;
 $_SESSION['description1']=$row['description1'];
@@ -117,7 +118,11 @@ $fett=$row['fett'];
                                 </div>
                             </li>
                         @endguest
+
                     </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/overview"> <img style="width: 40px" src="imagenes/carrito.png"> </a>
+                    </li>
                 </div>
             </div>
         </nav>
@@ -128,14 +133,10 @@ $fett=$row['fett'];
     </div>
 </header>
 
-<div>
+<div class="mm3">
 
-@if(session()->has('notif'))
-    <div>
-        <strong> Notification </strong>{{session()->get('notif')}}
+    <h4>@include('flash::message')</h4>
 
-    </div>
-    @endif
 </div>
 
 <body style="background-color:#DDFEFE ">
@@ -219,8 +220,8 @@ $fett=$row['fett'];
                     <select name="selectsize" id="selectsize">
 
                         <option class= "button-sizes" name="klein" value="klein" id="klein" >klein</option>
-                        <option class= "button-sizes" selected >medium</option>
-                        <option class= "button-sizes">gross </option>
+                        <option class= "button-sizes" value="medium" name="medium" id="medium" selected >medium</option>
+                        <option class= "button-sizes" value="gross" name="gross" id="gross" >gross </option>
 
                     </select>
 
@@ -235,6 +236,38 @@ $fett=$row['fett'];
 
 
 
+
+<div>
+
+    <h2> <?php
+
+        $cart= $_SESSION['cart'];
+        $items = $cart->items();
+//        $cart->clear();
+        foreach($items as $result) {
+            echo $result->name;
+
+
+            if($result->quantity != 1){
+                echo  str_repeat('&nbsp;', 5)."x ";
+            echo $result->quantity;
+
+            }
+            echo str_repeat('&nbsp;', 5);
+            $k= ($result->size );
+            echo $k;
+            echo "<br>";
+
+
+
+        }
+
+
+
+
+         ?> </h2>
+
+</div>
 
 </body>
 

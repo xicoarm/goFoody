@@ -36,16 +36,13 @@ Hello <?php echo $vorname; ?>,
 
 <div>
     <p><b><?php
-            $prices= $_SESSION["pricearray"];
-            $prices = array_sum($prices);
-            $orders= $_SESSION["orderarray"];
-
+            $orders = $_SESSION['cart']->getItems();
             foreach($orders as $result) {
-                echo $result, '  <br>';
+                echo $result->name, '  <br>';
             }
 
             echo '<br>';
-            echo "Total (inkl. MwSt.) $prices CHF";
+            echo "Total (inkl. MwSt.)". $_SESSION['cart']->getTotal(). " CHF";
             ?></b></p>
 </div>
 
@@ -53,7 +50,7 @@ Hello <?php echo $vorname; ?>,
 
 <div>
 
-    <p><b>testVarTwo:</b>&nbsp;{{ $testVarTwo }}</p>
+
 </div>
 
 Thank You,

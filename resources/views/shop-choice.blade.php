@@ -1,126 +1,108 @@
+
 <!doctype html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>CSS Grid Example</title>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'asd') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto:300,400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
-
-
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
+<body>
+<header>
 
 
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container">
 
 
+                <a style="position: relative; left: 46%" class="navbar-brand" href="{{ url('/welcome') }}">
+                    <img style="width: 150px" src="/imagenes/logogofoody.png">
+                    {{--                    {{ config('app.name', 'asd') }}--}}
+                </a>
 
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
+                        <ul class="navbar-nav mr-auto">
+                            <!-- Authentication Links -->
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="/welcome">Home</a>
+                            </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="/shop-Auswahl">Wochenpläne</a>
+                            </li>
+                        </ul>
 
+                    </ul>
 
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
 
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
 
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
 
+                    </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/overview"> <img style="width: 40px" src="imagenes/carrito.png"> </a>
+                    </li>
+                </div>
+            </div>
+        </nav>
 
-
-
-
-</head>
-
-
-
-<style>
-    html, body {
-        padding: 1%;
-        /*width: 90%;*/
-        max-width: 100%;
-        width: 95%;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%2384ce2b' fill-opacity='0.1' d='M0 40a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 40H0zM65.32.75A20.02 20.02 0 0 1 40.8 25.26 20.02 20.02 0 0 1 65.32.76zM.07 0h20.1l-.08.07A20.02 20.02 0 0 1 .75 5.25 20.08 20.08 0 0 1 .07 0zm1.94 40h2.53l4.26-4.24v-9.78A17.96 17.96 0 0 0 2 40zm5.38 0h9.8a17.98 17.98 0 0 0 6.67-16.42L7.4 40zm3.43-15.42v9.17l11.62-11.59c-3.97-.5-8.08.3-11.62 2.42zm32.86-.78A18 18 0 0 0 63.85 3.63L43.68 23.8zm7.2-19.17v9.15L62.43 2.22c-3.96-.5-8.05.3-11.57 2.4zm-3.49 2.72c-4.1 4.1-5.81 9.69-5.13 15.03l6.61-6.6V6.02c-.51.41-1 .85-1.48 1.33zM17.18 0H7.42L3.64 3.78A18 18 0 0 0 17.18 0zM2.08 0c-.01.8.04 1.58.14 2.37L4.59 0H2.07z'%3E%3C/path%3E%3C/svg%3E");
-
-        color: #636b6f;
-        font-family: 'Nunito', sans-serif;
-        font-weight: 200;
-        height: 100vh;
-        margin: 0;
-    }
-
-    .full-height {
-        height: 100vh;
-    }
-
-
-    .position-ref {
-        position: absolute;
-    }
-
-    .top-right {
-        position: absolute;
-        right: 10px;
-        top: 18px;
-    }
-
-    .content {
-        text-align: center;
-        position: absolute;
-    }
-
-    .title {
-        font-size: 84px;
-    }
-
-    .links > a {
-        color: #636b6f;
-        padding: 0 25px;
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: .1rem;
-        text-decoration: none;
-        text-transform: uppercase;
-    }
-
-    .m-b-md {
-        margin-bottom: 30px;
-    }
-</style>
-
-
-
-
-
-
-
-
-
-
-
-
-<header style="max-width: 100%">
-
-    <div class="top-nav container">
-        <div style="color: black; max-width: 100%" class="logo">FitFit</div>
-
-        <div style="position:relative; right: 10%; max-width: 150%">
-            <ul>
-                <li><a style="margin: 28px;font-weight: bold; color:black;" href="/welcome">Home</a></li>
-                <li><a style="margin: 28px;font-weight: bold; color:black;" href="#">About</a></li>
-                <li><a style="margin: 28px;font-weight: bold; color:black;" href="#">Blog</a></li>
-                <li><a style="margin: 28px;font-weight: bold; color:black;" href="#">Cart</a></li>
-            </ul>
-        </div>
-
-    </div> <!-- end top-nav -->
-
+        <main class="py-4">
+            {{--            @yield('content')--}}
+        </main>
+    </div>
 </header>
+
+
 
 
 
@@ -161,11 +143,6 @@
 
 
 
-{{--</body>--}}
-
-</html>
-
-
 
 
 
@@ -191,30 +168,36 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
 
-        <div class="mm" style="max-width: 80%; margin-left: 10%; min-width: 60%">
+        <div>
 
-            <div class="boxed" style="margin-left: 18%;">
+            <div style="border: 2px solid gray; padding: 6%">
                 <h1> Erstellen Sie Ihren persönlichen Wochenplan</h1>
                 <h2 style="margin: 10px"> Mahlzeiten an einem Tag?</h2>
 
-                <a style="text-align: center; color: white;font-weight: bold" href="{{ url('/5x2Wochenplan') }}" class="button1" >2</a>
-                <a style="text-align: center; color: white;font-weight: bold" href="{{ url('/5-Tage-Plan-3-Gerichte-am-Tag') }}" class="button1" >3</a>
-                <a style="text-align: center; color: white;font-weight: bold" href="{{ url('/5-Tage-Plan-3-Gerichte-am-Tag') }}" class="button1" >4</a>
-                    <a style="text-align: center; color: white;font-weight: bold" href="{{ url('/5-Tage-Plan-3-Gerichte-am-Tag') }}" class="button1" >5</a>
+                <a style="text-align: center; color: white;font-weight: bold" href="{{ url('/5x1Wochenplan') }}" class="btn btn-info" >1</a>
+                <a style="text-align: center; color: white;font-weight: bold" href="{{ url('/5x2Wochenplan') }}" class="btn btn-info" >2</a>
+                <a style="text-align: center; color: white;font-weight: bold" href="{{ url('/5x3Wochenplan') }}" class="btn btn-info" >3</a>
+{{--                <a style="text-align: center; color: white;font-weight: bold" href="{{ url('/5-Tage-Plan-3-Gerichte-am-Tag') }}" class="btn btn-info" >4</a>--}}
+{{--                    <a style="text-align: center; color: white;font-weight: bold" href="{{ url('/5-Tage-Plan-3-Gerichte-am-Tag') }}" class="btn btn-info" >5</a>--}}
 
             </div>
+        </div>
 
         <div>
 
-            <div class="boxedCarte" style="margin-left: 18%;width: 80%; min-width: 40%">
-                <h1>Essen Sie À la Carte</h1>
 
-                <a style="text-align: center; color: white;font-weight: bold;" href="{{ url('/shop') }}" class="button3" >Zum Shop</a>
+            <div style="border: 2px solid gray; padding: 6%; margin-top: 2%;">
+
+            <h1>Essen Sie À la Carte</h1>
+
+                <a style="text-align: center; color: white;font-weight: bold;" href="{{ url('/shop') }}" class="btn btn-danger" >Zum Shop</a>
             </div>
-        </div>
+
+
         </div>
 
 
+<br><br><br>
 
 <div class="blog-section">
 
@@ -258,6 +241,6 @@
     </div> <!-- end footer-content -->
 </footer>
 
-</div>
+
 {{--        </body>--}}
 </html>

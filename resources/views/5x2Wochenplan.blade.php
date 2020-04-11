@@ -1,59 +1,105 @@
+
 <!doctype html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>CSS Grid Example</title>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'asd') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto:300,400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
-
-
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-<body style="position: relative;left: 10%; min-height: 400px; width: 80%; height: auto">
+<body>
 <header>
 
 
-
-    <div style="font-width: bold; color: black;" class="top-nav container">
-        <div class="logo">FitFit</div>
-
-{{--        @if (Route::has('login'))--}}
-{{--            <div style="position:absolute; top: -5%; left: 75%" class="top-right links">--}}
-{{--                @auth--}}
-{{--                    <a href="{{ url('/welcome') }}">Mein Profil</a>--}}
-{{--                    <a href="{{ url('/logout') }}">Logout</a>--}}
-{{----}}
-{{--                @else--}}
-{{--                    <a href="{{ route('login') }}">Login</a>--}}
-{{----}}
-{{--                    @if (Route::has('register'))--}}
-{{--                        <a href="{{ route('register') }}">Register</a>--}}
-{{--                    @endif--}}
-{{--                @endauth--}}
-{{--            </div>--}}
-{{--        @endif--}}
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container">
 
 
-        <ul>
-            <li style="color: black"><a style="color: black; font-width: bold;" href="/welcome">Home</a></li>
-            <li><a style="color: black; font-width: bold;" href="/shop-Auswahl">Shop</a></li>
-            <li><a style="color: black; font-width: bold;" href="#">Blog</a></li>
-            <li><a style="color: black; font-width: bold;" href="#">Cart</a></li>
-        </ul>
-    </div> <!-- end top-nav -->
+                <a style="position: relative; left: 46%" class="navbar-brand" href="{{ url('/welcome') }}">
+                    <img style="width: 150px" src="/imagenes/logogofoody.png">
+                    {{--                    {{ config('app.name', 'asd') }}--}}
+                </a>
 
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
+                        <ul class="navbar-nav mr-auto">
+                            <!-- Authentication Links -->
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="/welcome">Home</a>
+                            </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="/shop-Auswahl">Wochenpläne</a>
+                            </li>
+                        </ul>
+
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
+
+                    </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/overview"> <img style="width: 40px" src="imagenes/carrito.png"> </a>
+                    </li>
+                </div>
+            </div>
+        </nav>
+
+        <main class="py-4">
+            {{--            @yield('content')--}}
+        </main>
+    </div>
 </header>
 
 
@@ -63,21 +109,29 @@
 {{--<div class="container">--}}
 
     <form method="post" action="overview">
-@csrf<h1 style="position:relative; left: 20%;color: lightblue" class="text"> Erstellen Sie Ihren Wochenplan </h1>
-
+@csrf<h1 style="color: lightblue" class="text"> Erstellen Sie Ihren Wochenplan </h1>
+<br>
 {{--        <div class="boxed" style="background-color: slategray; border: 1px solid white;">--}}
 
 
 
-        <h1 style="color: darkgreen; margin:-3%"> Tag 1 </h1>
-            <h1></h1>
-        <div class="tagseparate">
-            <select name="m1"id="m1" onchange="picturemChickenm2('textm1', 'imgm1','m1')" class="dropbtn1">Dropdown>
-                <option disabled selected="selected">Gericht 1</option>
+
+
+        <h3 class="textm1" style="color: darkgreen"> Tag 1 </h3>
+
+        <div class="mm4" style="">
+
+
+
+
+            <div class="mm4-column">
+            <select required name="m1"id="m1" onchange="picturemChickenm2('textm1', 'imgm1','m1')" class="btn btn-info" required>
+                <option disabled value="" selected="selected">Gericht 1</option>
 
 
 
             <?php
+
                 $connect = mysqli_connect("localhost", "root", "", "db");
                     $query = "SELECT * FROM produccts";
                     $result = mysqli_query($connect, $query);
@@ -90,21 +144,28 @@
 
             </select>
 
+                <div>
+                <img id="imgm1" src='' style="display:block;margin:auto;width: 150px;display:none;border-radius: 30%;"/>
+                </div>
 
-            <div class="im1">
+                 <div    class="textm1">
 
-                <img class='im1' id="imgm1" src='' style="display:none"/> </div>
-
-            <div class="textm1">
-            <h1 id="textm1" style="display: initial" class="textm1" > </h1> </div>
-
-
+                        <div>
+                    <h3 id="textm1" style="display: initial" class="textm1" > </h3>
+                         </div>
+                 </div>
 
 
 
-            <select name="a1" id="a1" onchange="picturemChickenm2('texta1', 'imga1','a1')" class="dropbtn2">Dropdown>
-                <option disabled selected="selected">Gericht 2</option>
-                <?php
+            </div>
+
+
+
+            <div class="mm4-column">
+            <select required name="a1" id="a1" onchange="picturemChickenm2('texta1', 'imga1','a1')" class="btn btn-info">Dropdown>
+                <option disabled value="" selected="selected">Gericht 2</option>
+
+            <?php
                 $connect = mysqli_connect("localhost", "root", "", "db");
                 $query = "SELECT * FROM produccts";
                 $result = mysqli_query($connect, $query);
@@ -112,252 +173,324 @@
                 while($row = mysqli_fetch_array($result))
                 { echo '
 
-                <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</button>
+                <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</option>
                 '; }?>
             </select>
 
             <div class="im2">
-                <img class='im2' id="imga1" src='' style=display:none /> </div>
+                <img class='im2' id="imga1" src='' style="display:block;margin:auto;width: 150px;display:none;border-radius: 30%" /> </div>
 
             <div class="texta1">
-                <h1 id="texta1" style="display: initial" class="textm1" > </h1> </div>
+                <h3 id="texta1" style="display: initial" class="textm1" > </h3> </div>
             {{--        //tag1--}}
-      </div>
-
-
-
-{{--        //tag 2--}}
-        <h1 style="color: darkgreen; margin:-3%"> Tag 2 </h1>
-     <div class="tagseparate">
-            <select name="m1"id="m2" onchange="picturemChickenm2('textm2', 'imgm2','m2')" class="dropbtn1">Dropdown>
-                <option disabled selected="selected">Gericht 1</option>
-
-
-
-                <?php
-                $connect = mysqli_connect("localhost", "root", "", "db");
-                $query = "SELECT * FROM produccts";
-                $result = mysqli_query($connect, $query);
-
-                while($row = mysqli_fetch_array($result))
-                { echo '
-
-                <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</button>
-                '; }?>
-
-            </select>
-
-
-            <div class="im1">
-
-                <img class='im1' id="imgm2" src='' style="display:none"/> </div>
-
-            <div class="textm1">
-                <h1 id="textm2" style="display: initial" class="textm1" > </h1> </div>
-
-
-
-
-
-            <select name="a1" id="a2" onchange="picturemChickenm2('texta2', 'imga2','a2')" class="dropbtn2">Dropdown>
-                <option disabled selected="selected">Gericht 2</option>
-                <?php
-                $connect = mysqli_connect("localhost", "root", "", "db");
-                $query = "SELECT * FROM produccts";
-                $result = mysqli_query($connect, $query);
-
-                while($row = mysqli_fetch_array($result))
-                { echo '
-
-                <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</button>
-                '; }?>
-            </select>
-
-            <div class="im2">
-                <img class='im2' id="imga2" src='' style=display:none /> </div>
-
-            <div class="texta1">
-                <h1 id="texta2" style="display: initial" class="textm1" > </h1> </div>
-            {{--        //tag1--}}
-        </div>
-
-{{--            TAg 3--}}
-        <h1 style="color: darkgreen; margin:-3%"> Tag 3 </h1>
-        <div class="tagseparate">
-            <select name="m1"id="m3" onchange="picturemChickenm2('textm3', 'imgm3','m3')" class="dropbtn1">Dropdown>
-                <option disabled selected="selected">Gericht 1</option>
-
-
-
-                <?php
-                $connect = mysqli_connect("localhost", "root", "", "db");
-                $query = "SELECT * FROM produccts";
-                $result = mysqli_query($connect, $query);
-
-                while($row = mysqli_fetch_array($result))
-                { echo '
-
-                <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</button>
-                '; }?>
-
-            </select>
-
-
-            <div class="im1">
-
-                <img class='im1' id="imgm3" src='' style="display:none"/> </div>
-
-            <div class="textm1">
-                <h1 id="textm3" style="display: initial" class="textm1" > </h1> </div>
-
-
-
-
-
-            <select name="a1" id="a3" onchange="picturemChickenm2('texta3', 'imga3','a3')" class="dropbtn2">Dropdown>
-                <option disabled selected="selected">Gericht 2</option>
-                <?php
-                $connect = mysqli_connect("localhost", "root", "", "db");
-                $query = "SELECT * FROM produccts";
-                $result = mysqli_query($connect, $query);
-
-                while($row = mysqli_fetch_array($result))
-                { echo '
-
-                <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</button>
-                '; }?>
-            </select>
-
-            <div class="im2">
-                <img class='im2' id="imga3" src='' style=display:none /> </div>
-
-            <div class="texta1">
-                <h1 id="texta3" style="display: initial" class="textm1" > </h1> </div>
-            {{--        //tag1--}}
+            </div>
         </div>
 
 
+        <hr>
+
+        <h3 class="textm1" style="color: darkgreen"> Tag 2 </h3>
+
+        <div class="mm4" style="">
 
 
 
-{{--        //Tag 4--}}
-        <h1 style="color: darkgreen; margin:-3%"> Tag 4 </h1>
-        <div class="tagseparate">
-            <select name="m1"id="m4" onchange="picturemChickenm2('textm4', 'imgm4','m4')" class="dropbtn1">Dropdown>
-                <option disabled selected="selected">Gericht 1</option>
+
+            <div class="mm4-column">
+                <select required name="m2"id="m2" onchange="picturemChickenm2('textm2', 'imgm2','m2')" class="btn btn-info">
+                    <option disabled value="" selected="selected">Gericht 1</option>
+
 
 
 
                 <?php
-                $connect = mysqli_connect("localhost", "root", "", "db");
-                $query = "SELECT * FROM produccts";
-                $result = mysqli_query($connect, $query);
 
-                while($row = mysqli_fetch_array($result))
-                { echo '
+                    $connect = mysqli_connect("localhost", "root", "", "db");
+                    $query = "SELECT * FROM produccts";
+                    $result = mysqli_query($connect, $query);
+
+                    while($row = mysqli_fetch_array($result))
+                    { echo '
 
                 <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</button>
                 '; }?>
 
-            </select>
+                </select>
+
+                <div>
+                    <img id="imgm2" src='' style="display:block;margin:auto;width: 150px;display:none;border-radius: 30%;"/>
+                </div>
+
+                <div    class="textm1">
+
+                    <div>
+                        <h3 id="textm2" style="display: initial" class="textm1" > </h3>
+                    </div>
+                </div>
 
 
-            <div class="im1">
 
-                <img class='im1' id="imgm4" src='' style="display:none"/> </div>
-
-            <div class="textm1">
-                <h1 id="textm4" style="display: initial" class="textm1" > </h1> </div>
+            </div>
 
 
 
+            <div class="mm4-column">
+                <select  required name="a2" id="a2" onchange="picturemChickenm2('texta2', 'imga2','a2')" class="btn btn-info">Dropdown>
+                    <option disabled value="" selected="selected">Gericht 2</option>
 
-
-            <select name="a1" id="a4" onchange="picturemChickenm2('texta4', 'imga4','a4')" class="dropbtn2">Dropdown>
-                <option disabled selected="selected">Gericht 2</option>
                 <?php
-                $connect = mysqli_connect("localhost", "root", "", "db");
-                $query = "SELECT * FROM produccts";
-                $result = mysqli_query($connect, $query);
+                    $connect = mysqli_connect("localhost", "root", "", "db");
+                    $query = "SELECT * FROM produccts";
+                    $result = mysqli_query($connect, $query);
 
-                while($row = mysqli_fetch_array($result))
-                { echo '
+                    while($row = mysqli_fetch_array($result))
+                    { echo '
+
+                <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</option>
+                '; }?>
+                </select>
+
+                <div class="im2">
+                    <img class='im2' id="imga2" src='' style="display:block;margin:auto;width: 150px;display:none;border-radius: 30%" /> </div>
+
+                <div class="texta1">
+                    <h3 id="texta2" style="display: initial" class="textm1" > </h3> </div>
+                {{--        //tag1--}}
+            </div>
+        </div>
+
+        <hr>
+
+        <h3 class="textm1" style="color: darkgreen"> Tag 3 </h3>
+
+        <div class="mm4" style="">
+
+
+
+
+            <div class="mm4-column">
+                <select required name="m3"id="m3" onchange="picturemChickenm2('textm3', 'imgm3','m3')" class="btn btn-info">Dropdown>
+                    <option disabled value="" selected="selected">Gericht 1</option>
+
+
+
+
+                <?php
+
+                    $connect = mysqli_connect("localhost", "root", "", "db");
+                    $query = "SELECT * FROM produccts";
+                    $result = mysqli_query($connect, $query);
+
+                    while($row = mysqli_fetch_array($result))
+                    { echo '
 
                 <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</button>
                 '; }?>
-            </select>
 
-            <div class="im2">
-                <img class='im2' id="imga4" src='' style=display:none /> </div>
+                </select>
 
-            <div class="texta1">
-                <h1 id="texta4" style="display: initial" class="textm1" > </h1> </div>
-            {{--        //tag1--}}
+                <div>
+                    <img id="imgm3" src='' style="display:block;margin:auto;width: 150px;display:none;border-radius: 30%;"/>
+                </div>
+
+                <div    class="textm1">
+
+                    <div>
+                        <h3 id="textm3" style="display: initial" class="textm1" > </h3>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="mm4-column">
+                <select  required name="a3" id="a3" onchange="picturemChickenm2('texta3', 'imga3','a3')" class="btn btn-info">Dropdown>
+                    <option disabled value="" selected="selected">Gericht 2</option>
+
+                <?php
+                    $connect = mysqli_connect("localhost", "root", "", "db");
+                    $query = "SELECT * FROM produccts";
+                    $result = mysqli_query($connect, $query);
+
+                    while($row = mysqli_fetch_array($result))
+                    { echo '
+
+                <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</option>
+                '; }?>
+                </select>
+
+                <div class="im2">
+                    <img class='im2' id="imga3" src='' style="display:block;margin:auto;width: 150px;display:none;border-radius: 30%" /> </div>
+
+                <div class="texta1">
+                    <h3 id="texta3" style="display: initial" class="textm1" > </h3> </div>
+                {{--        //tag1--}}
+            </div>
         </div>
 
 
 
 
-{{--        //Tag 5--}}
-{{----}}
+        <hr>
 
-        <h1 style="color: darkgreen; margin:-3%"> Tag 5 </h1>
-        <div class="tagseparate">
-            <select name="m1"id="m5" onchange="picturemChickenm2('textm5', 'imgm5','m5')" class="dropbtn1">Dropdown>
-                <option disabled selected="selected">Gericht 1</option>
+        <h3 class="textm1" style="color: darkgreen"> Tag 4 </h3>
+
+        <div class="mm4" style="">
+
+
+
+
+            <div class="mm4-column">
+                <select  required name="m4"id="m4" onchange="picturemChickenm2('textm4', 'imgm4','m4')" class="btn btn-info">Dropdown>
+                    <option disabled value="" selected="selected">Gericht 1</option>
+
 
 
 
                 <?php
-                $connect = mysqli_connect("localhost", "root", "", "db");
-                $query = "SELECT * FROM produccts";
-                $result = mysqli_query($connect, $query);
 
-                while($row = mysqli_fetch_array($result))
-                { echo '
+                    $connect = mysqli_connect("localhost", "root", "", "db");
+                    $query = "SELECT * FROM produccts";
+                    $result = mysqli_query($connect, $query);
+
+                    while($row = mysqli_fetch_array($result))
+                    { echo '
 
                 <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</button>
                 '; }?>
 
-            </select>
+                </select>
+
+                <div>
+                    <img id="imgm4" src='' style="display:block;margin:auto;width: 150px;display:none;border-radius: 30%;"/>
+                </div>
+
+                <div    class="textm1">
+
+                    <div>
+                        <h3 id="textm4" style="display: initial" class="textm1" > </h3>
+                    </div>
+                </div>
 
 
-            <div class="im1">
 
-                <img class='im1' id="imgm5" src='' style="display:none"/> </div>
-
-            <div class="textm1">
-                <h1 id="textm5" style="display: initial" class="textm1" > </h1> </div>
+            </div>
 
 
 
+            <div class="mm4-column">
+                <select required  name="a4" id="a4" onchange="picturemChickenm2('texta4', 'imga4','a4')" class="btn btn-info">Dropdown>
+                    <option disabled value="" selected="selected">Gericht 2</option>
 
-
-            <select name="a1" id="a5" onchange="picturemChickenm2('texta5', 'imga5','a5')" class="dropbtn2">Dropdown>
-                <option disabled selected="selected">Gericht 2</option>
                 <?php
-                $connect = mysqli_connect("localhost", "root", "", "db");
-                $query = "SELECT * FROM produccts";
-                $result = mysqli_query($connect, $query);
+                    $connect = mysqli_connect("localhost", "root", "", "db");
+                    $query = "SELECT * FROM produccts";
+                    $result = mysqli_query($connect, $query);
 
-                while($row = mysqli_fetch_array($result))
-                { echo '
+                    while($row = mysqli_fetch_array($result))
+                    { echo '
 
-                <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</button>
+                <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</option>
                 '; }?>
-            </select>
+                </select>
 
-            <div class="im2">
-                <img class='im2' id="imga5" src='' style=display:none /> </div>
+                <div class="im2">
+                    <img class='im2' id="imga4" src='' style="display:block;margin:auto;width: 150px;display:none;border-radius: 30%" /> </div>
 
-            <div class="texta1">
-                <h1 id="texta5" style="display: initial" class="textm1" > </h1> </div>
-            {{--        //tag1--}}
+                <div class="texta1">
+                    <h3 id="texta4" style="display: initial" class="textm1" > </h3> </div>
+                {{--        //tag1--}}
+            </div>
         </div>
 
-                <button type="submit" class="button1" style="margin-left: 45%">Zur Kasse </button>
 
+
+        <hr>
+
+        <h3 class="textm1" style="color: darkgreen"> Tag 5 </h3>
+
+
+        <div class="mm4" style="">
+
+
+
+
+            <div class="mm4-column">
+                <select required name="m5"id="m5" onchange="picturemChickenm2('textm5', 'imgm5','m5')" class="btn btn-info">Dropdown>
+                    <option disabled value="" selected="selected">Gericht 1</option>
+
+
+
+
+                <?php
+
+                    $connect = mysqli_connect("localhost", "root", "", "db");
+                    $query = "SELECT * FROM produccts";
+                    $result = mysqli_query($connect, $query);
+
+                    while($row = mysqli_fetch_array($result))
+                    { echo '
+
+                <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</button>
+                '; }?>
+
+                </select>
+
+                <div>
+                    <img id="imgm5" src='' style="display:block;margin:auto;width: 150px;display:none;border-radius: 30%;"/>
+                </div>
+
+                <div    class="textm1">
+
+                    <div>
+                        <h3 id="textm5" style="display: initial" class="textm1" > </h3>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="mm4-column">
+                <select required name="a5" id="a5" onchange="picturemChickenm2('texta5', 'imga5','a5')" class="btn btn-info">Dropdown>
+                    <option disabled value="" selected="selected">Gericht 2</option>
+
+                <?php
+                    $connect = mysqli_connect("localhost", "root", "", "db");
+                    $query = "SELECT * FROM produccts";
+                    $result = mysqli_query($connect, $query);
+
+                    while($row = mysqli_fetch_array($result))
+                    { echo '
+
+                <option onclick="picturemChickenm2("'.$row['name'].'")" name="'.$row['name'].'" value="'.$row['name'].'" >'.$row['name'].'</option>
+                '; }?>
+                </select>
+
+                <div class="im2">
+                    <img class='im2' id="imga5" src='' style="display:block;margin:auto;width: 150px;display:none;border-radius: 30%" /> </div>
+
+                <div class="texta1">
+                    <h3 id="texta5" style="display: initial" class="textm1" > </h3> </div>
+                {{--        //tag1--}}
+            </div>
+
+        </div>
+
+        <div>
+            <button id="zurkasse5x2" type="submit" class="btn btn-danger" style="margin-left: 45%"> Zur Kasse </button>
+
+        </div>
     </form>
+
+
+
+
 
 
 </body>
@@ -422,8 +555,6 @@
         }
     }
 </script>
-
-
 
 
 

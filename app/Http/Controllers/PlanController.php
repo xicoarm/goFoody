@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 
 class PlanController extends Controller
 {    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-//    public function __construct()
-//    {
+
+    public function __construct()
+    {
 //        $this->middleware('auth');
-//    }
+    }
 
     /**
      * Show the application dashboard.
@@ -22,6 +23,15 @@ class PlanController extends Controller
     public function index()
 
     {
+
+        if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+        if(!isset($_SESSION['cart'])){
+            $cart= new Cart();
+            $_SESSION['cart'] = $cart;
+        }
 
                 $connect = mysqli_connect("localhost", "root", "", "db");
                 $query = "SELECT * FROM produccts";
@@ -46,6 +56,79 @@ class PlanController extends Controller
 
 
         }
+    public function eins()
+
+    {
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if(!isset($_SESSION['cart'])){
+            $cart= new Cart();
+            $_SESSION['cart'] = $cart;
+        }
+
+        $connect = mysqli_connect("localhost", "root", "", "db");
+        $query = "SELECT * FROM produccts";
+        $result = mysqli_query($connect, $query);
+        $data_item = array();
+        $items = array();
+
+        while ($row = mysqli_fetch_array($result)) {
+
+
+//                    $data_item['id'] = $row['id'];
+//                    $data_item['name'] = $row['name'];
+//                    $data_item['description1'] = $row['description1'];
+//                    $data_item['price'] = $row['price'];
+
+            array_push($items, $row);
+        }
+
+
+
+        return view('5x1Wochenplan')->with('items', $items);
+
+
+    }
+
+    public function drei()
+
+    {
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if(!isset($_SESSION['cart'])){
+            $cart= new Cart();
+            $_SESSION['cart'] = $cart;
+        }
+
+        $connect = mysqli_connect("localhost", "root", "", "db");
+        $query = "SELECT * FROM produccts";
+        $result = mysqli_query($connect, $query);
+        $data_item = array();
+        $items = array();
+
+        while ($row = mysqli_fetch_array($result)) {
+
+
+//                    $data_item['id'] = $row['id'];
+//                    $data_item['name'] = $row['name'];
+//                    $data_item['description1'] = $row['description1'];
+//                    $data_item['price'] = $row['price'];
+
+            array_push($items, $row);
+        }
+
+
+
+        return view('5x3Wochenplan')->with('items', $items);
+
+
+    }
 
 //    public function ajaxRequestPost(Request $request)
 //

@@ -59,6 +59,7 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -69,6 +70,8 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
+
+
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -88,6 +91,9 @@
                                 </div>
                             </li>
                         @endguest
+                        <li class="nav-item">
+                            <a class="nav-link" href="/overview"> <img style="width: 40px" src="imagenes/carrito.png"> </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -112,21 +118,21 @@
 
     <img style="opacity: 0.8" src="imagenes/home-bg.jpg">
 
-        <div class="text-over-image" style="background-color: pink;  padding: 20px; opacity: 0.95; border-radius: 50px">
+{{--        <div class="text-over-image" style="background-color: pink;  padding: 20px; opacity: 0.95; border-radius: 50px">--}}
 
-        <h1 style="color: white; font-weight:bold">
-            Chef gekochte, gesunde Gerichte zu Ihnen <br>
-               nach Hause geliefert ab 9.90 CHF*
-            </h1>
+{{--        <h1 style="color: white; font-weight:bold">--}}
+{{--            Chef gekochte, gesunde Gerichte zu Ihnen <br>--}}
+{{--               nach Hause geliefert ab 9.90 CHF*--}}
+{{--            </h1>--}}
 
 
-            <h2 style="color: green; background-color:white;font-size: 18px;font-weight:bold; border-radius: 30px">
-                goFoody kauft ein, bereitet hoch qualitative und ausgegliechene <br>
-                Gerichte vor, kocht, und Liefert zu Ihnen nach Hause.
+{{--            <h2 style="color: green; background-color:white;font-size: 18px;font-weight:bold; border-radius: 30px">--}}
+{{--                goFoody kauft ein, bereitet hoch qualitative und ausgegliechene <br>--}}
+{{--                Gerichte vor, kocht, und Liefert zu Ihnen nach Hause.--}}
 
-            </h2>
+{{--            </h2>--}}
 {{--            <button> hall</button>--}}
-        </div>
+{{--        </div>--}}
 
     </div>
 
@@ -206,7 +212,6 @@
         </div> <!-- end blog-posts -->
     </div> <!-- end container -->
 </div> <!-- end blog-section -->
-    </div>
 
 
 <footer style="background-color: lightgray">
@@ -223,6 +228,5 @@
 </footer>
 </body>
 </html>
-
 
 

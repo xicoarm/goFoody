@@ -515,6 +515,18 @@ mark,
   list-style: none;
 }
 
+.blog-section{
+    margin-top: 10%;
+}
+
+.menutag{
+    display: inline-grid;
+    width: auto;
+    border: 1px solid gray;
+
+}
+
+
 .list-inline-item {
   display: inline-block;
 }
@@ -10985,10 +10997,35 @@ a.text-dark:focus {
     display: grid;
     grid-template-columns: auto auto auto;
     /*margin: 50px;*/
-    padding: 6%;
+    /*padding: 6%;*/
 
 
 }
+
+.textm1{
+    font-size: 15px;
+}
+
+.mm4{
+    width: auto;
+    /*padding: 10px;*/
+    /*position: relative;*/
+    justify-content: center;
+    display: inline-flex;
+    /*margin-block: 5%;*/
+    /*margin-top: 10px*/
+}
+.mm4-column{
+    display:  inline-block;
+
+    margin: 3%;
+    grid-template-columns: auto auto auto;
+    /*margin: 50px;*/
+    /*padding: 6%;*/
+
+
+}
+
 
 
 .button5{

@@ -18,7 +18,14 @@ class PaymentController extends Controller
      */
     public function index()
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
+        if(!isset($_SESSION['cart'])){
+            $cart= new Cart();
+            $_SESSION['cart'] = $cart;
+        }
 
         if (isset($_POST['stripeToken'])) {
 

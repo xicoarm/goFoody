@@ -73,11 +73,16 @@
         $lieferadresse= $_POST['lieferadresse'];
         $stadt= $_POST['stadt'];
         $plz= $_POST['plz'];
-//        session_start();
-//        $_SESSION["date"] = date('mdYHis', time());
-        $plz= '8922';
         $email= $_POST['email'];
         $handynummer= $_POST['handynummer'];
+
+        $_SESSION['name'] = $vorname;
+        $_SESSION['nachname'] = $nachname;
+        $_SESSION['lieferadresse'] = $lieferadresse;
+        $_SESSION['stadt'] = $stadt;
+        $_SESSION['plz'] = $plz;
+        $_SESSION['email'] = $email;
+        $_SESSION['handynummer'] = $handynummer;
 
         echo  nl2br ("$vorname \n $nachname \n  $email");
 
@@ -125,41 +130,43 @@
 
 
 <?php
-//
-//
-//require_once(__DIR__.'/../../../vendor/autoload.php');
-//
-//\Stripe\Stripe::setApiKey('sk_test_Nfa56xcqzEHcvB7UFC8W4nFB00PTrNqSqG');
-//
-//if(isset($_POST['stripeToken'])) {
-//    session_start();
-//    $prices= $_SESSION["pricearray"];
-//    $orders= $_SESSION["orderarray"];
-//
-//    $priceX100=(array_sum($prices) * 100);
-//
-//    $token= $_POST["stripeToken"];
-//
-//}
-//
-//$charge= \Stripe\Charge::create([
-//    "amount" => $priceX100,
-//    "currency" => "chf",
-//    "description" => "versand......",
-//    "source" => $token
-//]);
-//
-//\Stripe\Stripe::setApiKey('sk_test_BQokikJOvBiI2HlWgH4olfQ2');
-//$customer = \Stripe\Customer::create([
-//    'description' => 'example customer',
-//    'email' => 'email@example.com',
-//    'payment_method' => 'pm_card_visa',
-//]);
-//echo $customer;
-//
-//echo "<pre>, print_r($charge),</pre>";
-//
-//
-//
-//
-//?>
+
+
+require_once(__DIR__.'/../../../vendor/autoload.php');
+
+\Stripe\Stripe::setApiKey('sk_test_Nfa56xcqzEHcvB7UFC8W4nFB00PTrNqSqG');
+
+
+    $cart = $_SESSION['cart'];
+if(isset($_POST['stripeToken'])) {
+
+    $prices= $_SESSION["pricearray"];
+    $orders= $_SESSION["orderarray"];
+
+    $priceX100= (float)$cart->getTotal() * 100;
+
+    $token= $_POST["stripeToken"];
+
+}
+
+$charge= \Stripe\Charge::create([
+    "amount" => $priceX100,
+    "currency" => "chf",
+    "description" => "versand......",
+    "source" => $token
+]);
+
+\Stripe\Stripe::setApiKey('sk_test_BQokikJOvBiI2HlWgH4olfQ2');
+$customer = \Stripe\Customer::create([
+    'description' => 'example customer',
+    'email' => 'email@example.com',
+    'payment_method' => 'pm_card_visa',
+]);
+
+echo $customer;
+
+echo "<pre>, print_r($charge),</pre>";
+
+
+$_SESSION['datecode'] = date('dmYhm');
+?>

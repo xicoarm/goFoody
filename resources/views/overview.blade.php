@@ -100,10 +100,11 @@
 </header>
 
 
-
-<div>
+<div class="container">
+    <div class="row">
         @csrf
 
+    <div class="col-sm">
     <div>
         <h1> Ihre Bestellung </h1>
     </div>
@@ -115,7 +116,7 @@
 //
 
 
-        $orders= $_SESSION["orderarray"];
+//        $orders= $_SESSION["orderarray"];
 
 
 //        foreach($orders as $result) {
@@ -134,91 +135,183 @@
 
         <h4>
             <?php
+
             echo "<br>";
             echo "<br>";
-            $prices= $_SESSION["pricearray"];
-            $orders= $_SESSION["orderarray"];
+//            $prices= $_SESSION["pricearray"];
+//            $orders= $_SESSION["orderarray"];
+
+//            if(empty($_SESSION['cart']->items())) {
+//
+//                return redirect()->to('/empty-cart')->send();
+//
+//                }
 
             $cart= $_SESSION['cart'];
-//            echo 1;
-//            echo $cart->getItems();
-
             $items = $cart->items();
-
+//                    $cart->clear();
             foreach($items as $result) {
-            echo $result->name;
-            echo " - x";
-            echo $result->quantity;
+                echo $result->name;
+
+
+                if($result->quantity != 1){
+                    echo  str_repeat('&nbsp;', 3)."x ";
+                    echo $result->quantity;
+
+                }
+                echo str_repeat('&nbsp;', 3);
+                $k= ($result->size );
+                echo $k;
+                echo "<br>";
+
+
+
             }
-              echo "<br>";
+
+
+            echo "<br>";
+
             echo "<br>";
             echo "Total: ";
-            echo $cart->getTotal();
+            echo $_SESSION['cart']->getTotal();
+
             echo " CHF (inkl. MwSt)";
 
 //            echo $_SESSION['cart']->getItems();
             ?>
+
         </h4>
 
     </div>
-
+        </div>
 
     <br>
+
+    <div  class="col-sm">
             <script src="https://js.stripe.com/v3/"></script>
-        <div>
+
         <form action="/Bezahlung-erfolgreich-Danke!" method="post" id="payment-form">
             @csrf
 
-            <div>
-            <div class="form-style-8">
-                @guest
+            @guest
+                <h2>Über Sie</h2>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Vorname</label>
+                        <input class="form-control" name="vorname" type="text" placeholder="" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Nachname</label>
+                        <input class="form-control" name="nachname" type="text" placeholder="" required/>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="inputCity">Lieferadresse</label>
+                        <input class="form-control" name="lieferadresse" type="text" placeholder="" required/>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputCity">Hausnr.</label>
+                        <input class="form-control" name="hausnr" type="text" placeholder="" required/>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inputZip">Stadt</label>
+                        <input class="form-control" name="stadt" type="text" placeholder="" required/>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">PLZ</label>
+                        <input class="form-control" name="plz" type="text" placeholder="" required/>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Email</label>
+                        <input class="form-control" name="email" type="email" placeholder="" required/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Handynummer</label>
+                        <input class="form-control" name="handynummer" type="text" placeholder="" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            Check me out
+                        </label>
+                    </div>
+                </div>
+
+
+            @endguest
+
+            @if (Auth::check())
                 <h2>Über Sie</h2>
 
-                    <input name="vorname" type="text" placeholder="Vorname*" required />
-                    <input name="nachname" type="text" placeholder="Nachname*" required/>
-                    <input name="lieferadresse" type="text" placeholder="Lieferadresse*" required/>
-                    <input name="stadt" type="text"  placeholder="Stadt*"required/>
-                    <input name="plz" type="text" placeholder="PLZ*"required/>
-                    <br>
-                    <input name="email" type="email"  placeholder="Email" required/>
-                    <input type="text" name="handynummer"  placeholder="Handynummer" required/>
-                    <textarea placeholder="Kommentare" onkeyup="adjust_textarea(this)"></textarea>
-
-            </div>
-                @endguest
-
-                @if (Auth::check())
-
-                    <div>
-                    <h2>Über Sie</h2>
-
-                    <input name="vorname" type="text" value="{{Auth::user()->name}}" placeholder="Vorname*" required />
-                    <input name="nachname" type="text" value="{{Auth::user()->nachname}}" placeholder="Nachname*" required/>
-                    <input name="lieferadresse" type="text"value="{{Auth::user()->adresse}}" placeholder="Lieferadresse*" required/>
-                    <input name="stadt" type="text" value="{{Auth::user()->stadt}}" placeholder="Stadt*"required/>
-                    <input name="plz" type="text" value="{{Auth::user()->plz}}"  placeholder="PLZ*" required/>
-                    <br>
-                    <input name="email" type="email" value="{{Auth::user()->email}}" placeholder="Email" required/>
-                    <input type="text" name="handynummer"  placeholder="Handynummer" required />
-                    <textarea placeholder="Kommentare" onkeyup="adjust_textarea(this)"></textarea>
-
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Vorname</label>
+                        <input value="{{Auth::user()->name}}" class="form-control" name="vorname" type="text" placeholder="" required />
                     </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Nachname</label>
+                        <input value="{{Auth::user()->nachname}}" class="form-control" name="nachname" type="text" placeholder="" required/>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-5">
+                    <label for="inputCity">Lieferadresse</label>
+                    <input class="form-control" name="lieferadresse" type="text" placeholder="" required/>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputCity">Hausnr.</label>
+                    <input class="form-control" name="hausnr" type="text" placeholder="" required/>
+                </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">PLZ</label>
+                        <input  value="{{Auth::user()->plz}}" class="form-control" name="plz" type="text" placeholder="" required/>
+                    </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Email</label>
+                        <input value="{{Auth::user()->email}}" class="form-control" name="email" type="email" placeholder="" required/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Handynummer</label>
+                        <input  value="{{Auth::user()->handynummer}}" class="form-control" name="handynummer" type="text" placeholder="" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            Check me out
+                        </label>
+                    </div>
+                </div>
+
                 @endif
 
-            </div>
+
+
 
                     <div class="form-style-8k">
-                        <h2>halloo</h2>
+
                     </div>
 
 
 
-            <div class="form-style-8k">
-                <h2>Bezahlung</h2>
+            <div style="background-color: white" class="form-style-8k">
+
                 <br>
 
                 <label for="card-element">
-                    Kredit- oder Debitkarte (Maestro)
+                    <h2> Kredit- oder Debitkarte (Maestro) </h2>
                 </label>
 
                 <div id="card-element">
@@ -227,13 +320,12 @@
 
                 <!-- Used to display form errors. -->
                 <div id="card-errors" role="alert"></div>
-                <input class="button1" value="<?php echo array_sum($_SESSION['pricearray'])?> CHF Bezahlen" type="submit">
+
             </div>
 
-
-</form>
-</div>
-
+            <input class="btn btn-primary" value="Bezahlen" type="submit">
+        </form>
+    </div>
 
 
 
@@ -278,7 +370,7 @@
         </ul>
     </div> <!-- end footer-content -->
 </footer>
-</div>
+
 </body>
 </html>
 
@@ -302,12 +394,12 @@
     // (Note that this demo uses a wider set of styles than the guide below.)
     var style = {
         base: {
-            color: '#32325d',
+            color: 'black',
             fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
             fontSmoothing: 'antialiased',
             fontSize: '16px',
-            '::placeholder': {
-                color: '#aab7c4'
+            'placeholder': {
+                color: 'black'
             }
         },
         invalid: {
@@ -365,7 +457,7 @@
 
         <?php
 
-        $cart->clear();
+
 
         ?>
 

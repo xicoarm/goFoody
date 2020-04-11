@@ -1,5 +1,6 @@
 <?php
 
+use Anam\Phpcart\Cart;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
+
+
+    if(!isset($_SESSION['cart'])){
+        $cart= new Cart();
+        $_SESSION['cart'] = $cart;
+    }
+
     return view('welcome');
 });
 
@@ -24,13 +32,40 @@ Route::get('/', function () {
 //    return view('5x2Wochenplan');
 //});
 
-Route::get('5x2Wochenplan', 'PlanController@index');
+Route::get('5x2Wochenplan', 'PlanController@index');   // session..cart added
 
-Route::post('/overview', function () {
-    return view('overview');
-});
+
+Route::get('5x3Wochenplan', 'PlanController@drei');
+Route::get('5x1Wochenplan', 'PlanController@eins');
+
+
+
+
+
+//
+//Route::post('/overview', function () {
+//    if (session_status() == PHP_SESSION_NONE) {
+//        session_start();
+//    }
+//
+//    if(!isset($_SESSION['cart'])){
+//        $cart= new Cart();
+//        $_SESSION['cart'] = $cart;
+//    }
+//    return view('overview');
+//});
 
 Route::get('/welcome', function () {
+
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if(!isset($_SESSION['cart'])){
+        $cart= new Cart();
+        $_SESSION['cart'] = $cart;
+    }
+
     return view('welcome');
 });
 Route::get('mail/send', 'MailController@send');
@@ -45,17 +80,70 @@ Route::post('/Bezahlung-erfolgreich-Danke!', 'PaymentController@index');
 
 
 Route::post('/overview', function () {
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+
+    if(!isset($_SESSION['cart'])){
+        $cart= new Cart();
+        $_SESSION['cart'] = $cart;
+    }
+
+
 //    $_POST['a2']
     return view('overviewBack');
 });
 
-//Route::post('/overview', 'OverviewController@index');
+
+
+Route::get('/overview', function () {
+//    $_POST['a2']
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if(!isset($_SESSION['cart'])){
+        $cart= new Cart();
+        $_SESSION['cart'] = $cart;
+    }
+    return view('overview');
+});
+
+
+Route::get('/empty-cart', function () {
+//    $_POST['a2']
+    return view('empty-cart');
+});
+
+
+
 
 Route::get('/shop-Auswahl', function () {
+
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if(!isset($_SESSION['cart'])){
+        $cart= new Cart();
+        $_SESSION['cart'] = $cart;
+    }
+
     return view('shop-choice');
 });
 
 Route::get('/shop', function () {
+
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if(!isset($_SESSION['cart'])){
+        $cart= new Cart();
+        $_SESSION['cart'] = $cart;
+    }
+
     return view('shop');
 });
 
@@ -107,6 +195,14 @@ Route::get('/shop/{product}', 'ProductController@index');
 //Route::post('/sample-product-back', 'ProductController@second');
 
 Route::post('/sample-product-back',function () {
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if(!isset($_SESSION['cart'])){
+        $cart= new Cart();
+        $_SESSION['cart'] = $cart;
+    }
     return view('sample-product-back');
 });
 
@@ -121,7 +217,19 @@ Route::post('/sample-product-back',function () {
 
 
 
+Route::get('/paymentOK', function () {
 
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if(!isset($_SESSION['cart'])){
+        $cart= new Cart();
+        $_SESSION['cart'] = $cart;
+    }
+
+    return view('paymentOK');
+});
 
 
 

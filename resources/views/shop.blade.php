@@ -87,6 +87,9 @@
                                 </div>
                             </li>
                         @endguest
+                        <li class="nav-item">
+                            <a class="nav-link" href="/overview"> <img style="width: 40px" src="imagenes/carrito.png"> </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -120,25 +123,26 @@
                 {{--                <table class="table table-bordered">--}}
 
                 <?php
+
                 $connect = mysqli_connect("localhost", "root", "", "db");
 
 
-                if(isset($_SESSION['timer']))
-                {$time = Carbon\Carbon::now();   // timer to refresh order
-                    session_start();
-                    $a=(string)($time);
-                    echo $a;
-                    echo $a[14];
-                    if($a==$_SESSION['timer']){
-                        $query = "SELECT * FROM produccts";
-                    }
-                }
-                else{
-                    $time = Carbon\Carbon::now();
-                    $b=(string)($time);
-                    $_SESSION['timer']=$b[14];
+//                if(isset($_SESSION['timer']))
+//                {$time = Carbon\Carbon::now();   // timer to refresh order
+
+//                    $a=(string)($time);
+//                    echo $a;
+//                    echo $a[14];
+//                    if($a==$_SESSION['timer']){
+//                        $query = "SELECT * FROM produccts";
+//                    }
+//                }
+//                else{
+//                    $time = Carbon\Carbon::now();
+//                    $b=(string)($time);
+//                    $_SESSION['timer']=$b[14];
                     $query = "SELECT * FROM produccts ORDER BY RAND()";
-                }
+//                }
 
 
                 $result = mysqli_query($connect, $query);
@@ -209,6 +213,7 @@
 
 
                         ' ;
+//                    $_SESSION['cart']->clear();
                     if($row['description2']!= null){
                         echo '
 
