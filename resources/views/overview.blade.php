@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="de">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -112,26 +112,13 @@
     <div>
 
         <h2>
-        <?php
-//
 
-
-//        $orders= $_SESSION["orderarray"];
-
-
-//        foreach($orders as $result) {
-//            echo $result, '  <br>';
-//        }
-
-//        echo '<br>';
-//            echo "Total (inkl. MwSt.) ";
-//        ?>
         </h2>
 
     </div>
 
 
-    <div >
+    <div>
 
         <h4>
             <?php
@@ -147,12 +134,11 @@
 //
 //                }
 
-            $cart= $_SESSION['cart'];
-            $items = $cart->items();
-//                    $cart->clear();
+//            $cart= $_SESSION['cart'];
+            $items = $_SESSION['cart']->items();
+//                    $_SESSION['cart']->clear();
             foreach($items as $result) {
                 echo $result->name;
-
 
                 if($result->quantity != 1){
                     echo  str_repeat('&nbsp;', 3)."x ";
@@ -162,19 +148,32 @@
                 echo str_repeat('&nbsp;', 3);
                 $k= ($result->size );
                 echo $k;
-                echo "<br>";
 
 
+                 if(true){ ?>
+
+                <form action="/overview/delete" method="post">
+                    @csrf
+                <input hidden name="size" value="{{$result->size}}">
+                <button type="submit" class="custom-checkbox"  style="background-color: red;color: white" name="deleteitem" value="{{$result->id}}" id="{{$result->size}}"  > X </button>
+                </form>
+                    <?php }
 
             }
 
+            ?>
+
+
+
+            <?php
 
             echo "<br>";
 
             echo "<br>";
             echo "Total: ";
-            echo $_SESSION['cart']->getTotal();
-
+            $y= $_SESSION['cart']->getTotal();
+            $y= str_replace(".",",",$y);
+            echo $y;
             echo " CHF (inkl. MwSt)";
 
 //            echo $_SESSION['cart']->getItems();
@@ -322,43 +321,32 @@
                 <div id="card-errors" role="alert"></div>
 
             </div>
+<br>
+            <br>
+            <br>
 
             <input class="btn btn-primary" value="Bezahlen" type="submit">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br><br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+
         </form>
     </div>
 
 
+    </div>
 
-
-<div class="blog-section">
-
-    <div class="container">
-        <h1 class="text-center">Wie funktioniert es? </h1>
-
-        <p class="section-description text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et sed accusantium maxime dolore cum provident itaque ea, a architecto alias quod reiciendis ex ullam id, soluta deleniti eaque neque perferendis.</p>
-
-        <div class="blog-posts">
-            <div class="blog-post" id="blog1">
-                <a href="#"><img src="img/blog1.png" alt="blog image"></a>
-                <a href="#"><h2 class="blog-title">Erfahrungen Sasha...</h2></a>
-                <div class="blog-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est ullam, ipsa quasi?</div>
-            </div>
-            <div class="blog-post" id="blog2">
-                <a href="#"><img src="img/blog2.png" alt="blog image"></a>
-                <a href="#"><h2 class="blog-title">Foto Küche oder mitarb</h2></a>
-                <div class="blog-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est ullam, ipsa quasi?</div>
-            </div>
-            <div class="blog-post" id="blog3">
-                <a href="#"><img src="img/blog3.png" alt="blog image"></a>
-                <a href="#"><h2 class="blog-title">ärztlich iöbis</h2></a>
-                <div class="blog-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est ullam, ipsa quasi?</div>
-            </div>
-        </div> <!-- end blog-posts -->
-    </div> <!-- end container -->
-</div> <!-- end blog-section -->
-
-
-<footer style="background-color: lightgray">
+<footer style="">
     <div class="footer-content container">
         <div class="made-with">With <i class="fa fa-heart"></i> by FitFit</div>
         <ul>
@@ -455,12 +443,6 @@
         // Submit the form
 
 
-        <?php
-
-
-
-        ?>
-
         form.submit();
     }
 
@@ -481,7 +463,9 @@ if(isset($_POST['vorname'])){
     $plz= $_POST['plz'];
     $email= $_POST['email'];
     $handynummer= $_POST['handynummer'];
+
 }
+
 ?>
 
 

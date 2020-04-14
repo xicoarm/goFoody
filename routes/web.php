@@ -36,7 +36,18 @@ Route::get('5x2Wochenplan', 'PlanController@index');   // session..cart added
 
 
 Route::get('5x3Wochenplan', 'PlanController@drei');
-Route::get('5x1Wochenplan', 'PlanController@eins');
+Route::get('5x1Wochenplan', 'PlanController@eins', function () {
+
+
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if(!isset($_SESSION['cart'])){
+        $cart= new Cart();
+        $_SESSION['cart'] = $cart;
+    }
+});
 
 
 
@@ -66,6 +77,8 @@ Route::get('/welcome', function () {
         $_SESSION['cart'] = $cart;
     }
 
+    $S_SESSION['connect']= mysqli_connect("localhost", "root", "", "db");
+
     return view('welcome');
 });
 Route::get('mail/send', 'MailController@send');
@@ -76,7 +89,7 @@ Route::get('/blanco', function () {
 
 Route::post('/Bezahlung-erfolgreich-Danke!', 'PaymentController@index');
 //Route::post('Bezahlung-erfolgreich-Danke!', [ 'as' => 'Bezahlung-erfolgreich-Danke!', 'uses' => '']);
-
+Route::post('/Wochenplan', 'ChoiceController@index');
 
 
 Route::post('/overview', function () {
@@ -111,10 +124,61 @@ Route::get('/overview', function () {
 });
 
 
+Route::post('/overview/delete', function () {
+//    $_POST['a2']
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if(!isset($_SESSION['cart'])){
+        $cart= new Cart();
+        $_SESSION['cart'] = $cart;
+    }
+
+    if(isset($_POST['deleteitem'])){
+
+//        echo $_POST['deleteitem'];
+//        echo " ";
+//        echo $_POST['size'];
+
+        $_SESSION['cart']->remove($_POST['deleteitem']);
+
+
+
+            }
+
+
+
+
+
+
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if(!isset($_SESSION['cart'])){
+        $cart= new Cart();
+        $_SESSION['cart'] = $cart;
+    }
+
+
+    return view('overview');
+});
+
+
+
+
+
+
 Route::get('/empty-cart', function () {
 //    $_POST['a2']
     return view('empty-cart');
 });
+
+
+
+
+
 
 
 
@@ -135,6 +199,8 @@ Route::get('/shop-Auswahl', function () {
 
 Route::get('/shop', function () {
 
+
+
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
@@ -144,6 +210,8 @@ Route::get('/shop', function () {
         $_SESSION['cart'] = $cart;
     }
 
+
+//    if()
     return view('shop');
 });
 

@@ -36,14 +36,39 @@ Hello <?php echo $vorname; ?>,
 
 <div>
     <p><b><?php
-            $orders = $_SESSION['cart']->getItems();
-            foreach($orders as $result) {
-                echo $result->name, '  <br>';
+            $cart= $_SESSION['cart'];
+            $items = $cart->items();
+            //                    $cart->clear();
+            foreach($items as $result) {
+                echo $result->name;
+                echo str_repeat('&nbsp;', 3);
+
+                $k= ($result->size );
+                echo $k;
+                echo str_repeat('&nbsp;', 3);
+
+                if($result->quantity != 1){
+                    echo  str_repeat('&nbsp;', 3)."x ";
+                    echo $result->quantity;
+
+                }
+                echo "<br>";
+
+
             }
 
-            echo '<br>';
-            echo "Total (inkl. MwSt.)". $_SESSION['cart']->getTotal(). " CHF";
-            ?></b></p>
+
+
+
+            echo "<br>";
+            echo "Total: ";
+            echo $_SESSION['cart']->getTotal();
+
+            echo " CHF (inkl. MwSt)";
+
+            //            echo $_SESSION['cart']->getItems();
+            ?>
+            </b></p>
 </div>
 
 <p><u>Lieferung montag..</u></p>

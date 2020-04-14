@@ -25,6 +25,7 @@
 <header>
 
 
+
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -103,6 +104,8 @@
 
 <body>
 
+@desktop
+
 
 <form class="featured-section">
     <form class="container">
@@ -118,34 +121,18 @@
 
 
             <div class="mm3-column">
-                {{--            <div class="product">--}}
 
-                {{--                <table class="table table-bordered">--}}
 
                 <?php
 
-                $connect = mysqli_connect("localhost", "root", "", "db");
 
+                $conn= mysqli_connect("localhost", "root", "", "db");
 
-//                if(isset($_SESSION['timer']))
-//                {$time = Carbon\Carbon::now();   // timer to refresh order
-
-//                    $a=(string)($time);
-//                    echo $a;
-//                    echo $a[14];
-//                    if($a==$_SESSION['timer']){
-//                        $query = "SELECT * FROM produccts";
-//                    }
-//                }
-//                else{
-//                    $time = Carbon\Carbon::now();
-//                    $b=(string)($time);
-//                    $_SESSION['timer']=$b[14];
                     $query = "SELECT * FROM produccts ORDER BY RAND()";
-//                }
 
 
-                $result = mysqli_query($connect, $query);
+
+                $result = mysqli_query($conn, $query);
 
                 while($row = mysqli_fetch_array($result))
                 {           $i = 0;
@@ -155,7 +142,169 @@
                     $i=0;
                     $_SESSION['ii'] = 0;
                     echo '
-                    <div style="border: 1px solid saddlebrown;border-radius: 12px; min-width: 10%">
+                    <div onclick="shop(this.id)" value="'.$row['name'].'" id="'.$link.'" style="cursor: pointer;border-radius: 12px;  min-width: 10%">
+
+
+            <script>
+
+function shop(link){
+
+    var str1 = "shop/";
+var str2 = link;
+var res = str1.concat(str2);
+
+      window.location = res;
+//  return false;
+
+}
+
+            </script>
+
+
+
+
+               <div class="grid2" style="font-size:25px; font-weight:bold">
+
+                       <div>
+                         <img style="border-radius: 50%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 20px 0 rgba(0, 0, 0, 0.49);;" src="data:image/jpeg;base64,'.base64_encode($row['i1'] ).'" height="215" width="250" class="img-thumnail"
+
+                        </div>
+
+                       <div>
+                        <h2> '.$row['preisShopMedium'].' CHF </h2>
+                        </div>
+
+                </div>
+
+
+            </div>
+                        <h2 style="color: black;">'.$row['name'].'</h2>
+
+
+
+
+            <table style=" display: inline-block; padding: 4px; text-align: center; background-color: whitesmoke">
+
+<thead>
+<tr>
+
+<th>Pro 100g: </b> &emsp;</th>
+<th>kCal &ensp;</th>
+<th>Eiweiss &ensp; </th>
+<th>Carbs &ensp; </th>
+<th>Fett </th>
+
+</tr>
+</thead>
+
+<tbody>
+<tr>
+                                <td>&emsp;</td>
+                            <td>'.$row['kalorien'].'&ensp;</td>
+                             <td>'.$row['protein'].'&ensp;&ensp;</td>
+                            <td>'.$row['carbs'].'&ensp;</td>
+                            <td>'.$row['fett'].'</td>
+
+
+
+</tr>
+                </table>
+
+
+
+
+            <div>
+
+
+
+                        ' ;
+//                    $_SESSION['cart']->clear();
+                    if($row['description2']!= null){
+                        echo '
+
+                <a type="button" class="button6" > '.$row['description2'].' </a>
+
+
+            </div>
+
+     ';}
+
+                    echo '<div style="margin:60px">
+
+  <a href="/shop/'.$link.'" style="width: 60%" class="btn btn-info"> Weiter </a>
+
+
+</div>  </div> ';
+                    $i=$i+1;
+                }
+
+                ?>
+
+            </div> <!-- end products -->
+
+
+
+            @elsedesktop
+
+
+
+
+            <form class="featured-section">
+                <form class="container">
+
+                    <p style="color: black" class="section-description text-center">Alle unsere Produkte sind frisch gekocht und ohne Konservanten.</p>
+                    <br>
+                    <br>
+
+                    <div class="mm3">
+                        <div class="text-center button-container">
+
+                        </div>
+
+
+                        <div class="mm3-column">
+                            {{--            <div class="product">--}}
+
+                            {{--                <table class="table table-bordered">--}}
+
+                            <?php
+
+
+                            $conn= mysqli_connect("localhost", "root", "", "db");
+
+                            $query = "SELECT * FROM produccts ORDER BY RAND()";
+
+
+
+                            $result = mysqli_query($conn, $query);
+
+                            while($row = mysqli_fetch_array($result))
+                            {           $i = 0;
+                                $ii=0;
+                                $link= str_replace(' ', '-', $row['name']);
+                                $_SESSION['i'] = 0;
+                                $i=0;
+                                $_SESSION['ii'] = 0;
+                                echo '
+                    <div onclick="shop(this.id)" value="'.$row['name'].'" id="'.$link.'" style=" width: 30% cursor: pointer;border-radius: 12px; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19); min-width: 10%">
+
+
+            <script>
+
+function shop(link){
+
+    var str1 = "shop/";
+var str2 = link;
+var res = str1.concat(str2);
+
+      window.location = res;
+//  return false;
+
+}
+
+            </script>
+
+
 
 
                <div class="grid2" style="font-size:25px; font-weight:bold">
@@ -214,8 +363,8 @@
 
                         ' ;
 //                    $_SESSION['cart']->clear();
-                    if($row['description2']!= null){
-                        echo '
+                                if($row['description2']!= null){
+                                    echo '
 
                 <a type="button" class="button6" > '.$row['description2'].' </a>
 
@@ -224,19 +373,30 @@
 
      ';}
 
-                    echo '<div>
+                                echo '<div style="margin:60px">
 
-                                   <a href="/shop/'.$link.'" class="button5"> Gericht wählen </a>
+  <a href="/shop/'.$link.'" class="btn btn-info"> </a>
+
+
+</div>  </div> ';
+                                $i=$i+1;
+                            }
+
+                            ?>
+
+                        </div> <!-- end products -->
 
 
 
-</div>  </div>  ';
-                    $i=$i+1;
-                }
 
-                ?>
 
-            </div> <!-- end products -->
+
+
+
+
+            @enddesktop
+
+
 
         </div>
         <div class="text-center button-container">
@@ -304,7 +464,7 @@
             </div> <!-- end blog-posts -->
         </div> <!-- end container -->
     </div> <!-- end blog-section -->
-    </div>
+
 
 
     <footer style="background-color: lightgray">
@@ -320,8 +480,8 @@
         </div> <!-- end footer-content -->
     </footer>
 
-    </div>
-</form>
+
+
 </body>
 </html>
 

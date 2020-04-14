@@ -170,18 +170,72 @@
 
         <div>
 
+
+            <form action="/Wochenplan" method="post">
+                @csrf
             <div style="border: 2px solid gray; padding: 6%">
                 <h1> Erstellen Sie Ihren persönlichen Wochenplan</h1>
+                <br>
                 <h2 style="margin: 10px"> Mahlzeiten an einem Tag?</h2>
+            <br>
 
-                <a style="text-align: center; color: white;font-weight: bold" href="{{ url('/5x1Wochenplan') }}" class="btn btn-info" >1</a>
-                <a style="text-align: center; color: white;font-weight: bold" href="{{ url('/5x2Wochenplan') }}" class="btn btn-info" >2</a>
-                <a style="text-align: center; color: white;font-weight: bold" href="{{ url('/5x3Wochenplan') }}" class="btn btn-info" >3</a>
+
+                <select required style="color: white;" class="btn btn-info" name="mealsxday" id="mealsxday">
+                    <option disabled value="" selected="selected">Gerichte</option>
+                    <option class="btn-dark" value="1">1</option>
+                    <option class="btn-dark" value="2">2</option>
+                    <option class="btn-dark" value="3">3</option>
+                </select>
+
+
 {{--                <a style="text-align: center; color: white;font-weight: bold" href="{{ url('/5-Tage-Plan-3-Gerichte-am-Tag') }}" class="btn btn-info" >4</a>--}}
 {{--                    <a style="text-align: center; color: white;font-weight: bold" href="{{ url('/5-Tage-Plan-3-Gerichte-am-Tag') }}" class="btn btn-info" >5</a>--}}
 
+                <div>
+                    <br>
+                    <h2 style="margin: 10px"> Portion grösse?</h2>
+                    <select required style="color: white" class="btn btn-info" name="mealsize" id="mealsize">
+                        <option disabled value="" selected="selected">Bedarf</option>
+                        <option class="btn-dark" value="klein">klein</option>
+                        <option class="btn-dark" value="medium">medium</option>
+                        <option class="btn-dark" value="gross">gross</option>
+                    </select>
+                </div>
+                <br>
+                <br>
+                <br>
+                <button type="submit" style="text-align: center; color: white;font-weight: bold" class="btn btn-danger" >Weiter</button>
+
             </div>
+            </form>
         </div>
+
+
+<script>
+    // Add active class to the current button (highlight it)
+function choice(id) {
+
+    document.getElementById(id).classList.add('info-active');
+
+    // document.getElementById(id).classList.remove('MyClass');
+    // document.getElementById(id).className("info-active");
+
+    }
+
+    function choicedark(id) {
+
+        document.getElementById(id).classList.add('info-active-dark');
+
+        // document.getElementById(id).classList.remove('MyClass');
+        // document.getElementById(id).className("info-active");
+
+    }
+</script>
+
+
+
+
+
 
         <div>
 

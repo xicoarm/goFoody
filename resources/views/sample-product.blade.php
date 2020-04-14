@@ -10,15 +10,22 @@ if ($conn->connect_error) {
 $product = str_replace('-',' ',$product);
 
 
-$result = $conn->query("SELECT name,price,description1,i1,protein,carbs,fett,kalorien FROM produccts where name='$product'");
+
+$result = $conn->query("SELECT name,preisShopKlein, gewichtKlein,gewichtGross,gewichtMedium,preisShopMedium, preisShopGross, description1,i1,protein,carbs,fett,kalorien FROM produccts where name='$product'");
 $row = mysqli_fetch_assoc($result);
 
 
 
-$_SESSION['price']=$row['price'];
+//$_SESSION['price']=$row['price'];
 $_SESSION['name']=$row['name'];;
 $_SESSION['description1']=$row['description1'];
 $_SESSION['i1']=$row['i1'];
+$_SESSION['preisShopKlein']=$row['preisShopKlein'];
+$_SESSION['preisShopMedium']=$row['preisShopMedium'];
+$_SESSION['preisShopGross']=$row['preisShopGross'];
+$_SESSION['gewichtKlein']=$row['gewichtKlein'];
+$_SESSION['gewichtGross']=$row['gewichtGross'];
+$_SESSION['gewichtMedium']=$row['gewichtMedium'];
 
 $protein=$row['protein'];
 $carbs=$row['carbs'];
@@ -121,7 +128,7 @@ $fett=$row['fett'];
 
                     </ul>
                     <li class="nav-item">
-                        <a class="nav-link" href="/overview"> <img style="width: 40px" src="imagenes/carrito.png"> </a>
+                        <a  class="nav-link" href="/overview"> <img style="width: 40px" src="imagenes/carrito.png"> </a>
                     </li>
                 </div>
             </div>
@@ -139,16 +146,16 @@ $fett=$row['fett'];
 
 </div>
 
-<body style="background-color:#DDFEFE ">
+<body>
 
 
-    <main class="container" style="background-color: #DDFEFE; height: 80%;">
+    <main class="container" style="height: 80%;">
 
         <!-- Left Column / Headphones Image -->
         <!-- Left Column / Headphones Image -->
 
         <div class="left-column">
-            <img src="data:image/jpeg;base64, <?php echo base64_encode($row['i1']); ?>" >
+            <img style="border-radius: 30%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 20px 0 rgba(0, 0, 0, 0.49);;"src="data:image/jpeg;base64, <?php echo base64_encode($row['i1']); ?>" >
         </div>
 
 
@@ -197,10 +204,26 @@ $fett=$row['fett'];
             <form class="product-configuration" method="post" action="/sample-product-back">
                 @csrf
                 <!-- Product Color -->
+
+
+                    <select style="visibility: hidden" class="btn btn-outline-primary" onchange="abc('{{$_SESSION['name']}}', this.value)" name="selectsize" id="selectsize">
+{{--                        <option disabled value="" selected="selected">Wählen Sie</option>--}}
+                        <option class= "button-sizes" name="klein" value="klein" id="klein" >klein ({{$_SESSION['gewichtKlein']}}g)</option>
+                        <option class= "button-sizes" value="medium" name="medium" id="medium" selected >medium ({{$_SESSION['gewichtMedium']}}g)</option>
+                        <option class= "button-sizes" value="gross" name="gross" id="gross" >gross ({{$_SESSION['gewichtGross']}}g) </option>
+
+                    </select>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
                     <div class="product-price">
-                        <h2 id="priceup" name="priceup"> <?php echo $_SESSION['price']; ?>  CHF / Portion</h2>
+                        <h2 id="priceup" name="priceup"> <?php echo $_SESSION['preisShopMedium']; ?>  CHF / Portion</h2>
                         {{--                <a href="/sample-product-back" class="cart-btn">Add to cart</a>--}}
                     </div>
+        <br>
+                    <br>
 
 {{--                    <select hidden id="prodname" name="prodname" type="text">--}}
 {{--                        <option selected value="{{$name}}"> </option>--}}
@@ -208,26 +231,31 @@ $fett=$row['fett'];
 {{--                    </select>--}}
 
                     <div class="quantity buttons_added">
-                        <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" value="1" name="quantity"  title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                        <input type="button" value="-" class="minus">
+                        <input type="number" step="1" min="1" max="" value="1" name="quantity"  title="Qty" class="input-text qty text" size="4" pattern="" inputmode="">
+                        <input type="button" value="+" class="plus">
                     </div>
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
 
                 <!-- Cable Configuration -->
                 <div class="cable-config">
-                    <span style="color: black">Gericht: </span> </div>
+
 
                     <input type="hidden" value="{{$product}}" name="nameid" id="nameid">
 
-                    <select name="selectsize" id="selectsize">
 
-                        <option class= "button-sizes" name="klein" value="klein" id="klein" >klein</option>
-                        <option class= "button-sizes" value="medium" name="medium" id="medium" selected >medium</option>
-                        <option class= "button-sizes" value="gross" name="gross" id="gross" >gross </option>
-
-                    </select>
-
-                    <button type="submit" href="/sample-product-back" > In Warenkorb </button>
-
+                    <button class="btn btn-success" type="submit" href="/sample-product-back" > In Warenkorb </button>
+                </div>
             </form>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
 
             <!-- Product Pricing -->
 
@@ -236,38 +264,6 @@ $fett=$row['fett'];
 
 
 
-
-<div>
-
-    <h2> <?php
-
-        $cart= $_SESSION['cart'];
-        $items = $cart->items();
-//        $cart->clear();
-        foreach($items as $result) {
-            echo $result->name;
-
-
-            if($result->quantity != 1){
-                echo  str_repeat('&nbsp;', 5)."x ";
-            echo $result->quantity;
-
-            }
-            echo str_repeat('&nbsp;', 5);
-            $k= ($result->size );
-            echo $k;
-            echo "<br>";
-
-
-
-        }
-
-
-
-
-         ?> </h2>
-
-</div>
 
 </body>
 
@@ -326,6 +322,78 @@ $fett=$row['fett'];
 <script src="script.js"></script>
 
     <script>
+
+        $(document).ready(function() {
+
+            document.getElementById("selectsize").style.visibility = "visible";
+
+        });
+
+        function abc(meal, size) {
+            products = ["Chicken mit Reis", "Pro 480g: kCal 652, Carbs 73g, Eiweiss 37g, Fett 24g", "price", "description1",
+                "Paella Marisco", "Pro 480g: kCal 622, Carbs 72g, Eiweiss 32g, Fett 22g", "Paella mit Fish und ....",
+                "Wurst mit Champignons und Vegetables", "Pro 480g: kCal 632, Carbs 73g, Eiweiss 33g, Fett 23g", "description1",
+
+
+                "Pouletbrust mit Basmatireis und Gemüse",
+                "Hühnerbrust begleitet von Reis zur sowie von einer Gemüsemischung (Brokkoli, grüne Bohnen, Karotten und rote Paprika).",
+
+                "11.90", //preis für klein shop 12.20
+                "14.90", //preis für mid shop 13.70
+                "17.80", //preis für gross shop 18.90
+
+                "10.90", //preis für klein PLAN 11.00
+                "13.90", //presi med PLAN   14.00
+                "16.80",   // p gross PLAN     17.00
+
+                //klein-mid-g gramm
+                "350",   // p gross PLAN     17.00
+                "450",   // p gross PLAN     17.00
+                "550",   // p gross PLAN     17.00
+
+                //nährwerte pro 100g
+                "106.4",// kCal,
+                "16", //Carbs,
+                "8.2", //Eiweiss,
+                "0.9", // Fett",
+
+
+            ];
+
+
+            for (index = 0; index < products.length; ++index) {
+
+
+                if (products[index] == meal) {
+
+                    if(size=="klein") {
+
+                        // document.getElementById('priceup').innerText = products[index+3];
+                        document.getElementById('priceup').innerHTML = products[index+2]+" CHF / Portion";
+                        document.getElementById('priceup').innerText = products[index+2]+" CHF / Portion";
+
+
+                    }
+                    if(size=="medium") {
+
+                        // document.getElementById('priceup').innerText = products[index+3];
+                        document.getElementById('priceup').innerHTML = products[index+3]+" CHF / Portion";
+
+                    }
+                    if(size=="gross") {
+
+                        // document.getElementById('priceup').innerText = products[index+3];
+                        document.getElementById('priceup').innerHTML = products[index+4]+" CHF / Portion";
+
+                    }
+
+                }
+
+            }
+        }
+
+
+
         $(document).ready(function() {
 
             $('.color-choose input').on('click', function() {

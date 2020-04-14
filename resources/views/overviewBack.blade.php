@@ -106,7 +106,7 @@ if(isset($_POST['s5'])){
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $p='plan';
+    $p='('.$selectsize.")";
 
     if ($result = $conn->query("SELECT name,price FROM produccts where name='$valm1'")) {
 
