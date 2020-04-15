@@ -4555,6 +4555,26 @@ input[type=button].btn-block {
     cursor: default;
 }
 
+
+
+
+
+
+
+
+
+
+.newitem{
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    font-size: 18px;
+    font-color:pink;
+    font-weight: bold;
+}
+
+
+
+
 .nav-tabs {
     border-bottom: 1px solid #dee2e6;
 }
@@ -11026,14 +11046,15 @@ a.text-dark:focus {
 
 .quantity.buttons_added .minus,
 .quantity.buttons_added .plus {
-    -webkit-box-shadow: -1px 10px 48px -4px rgba(0,0,0,0.75);
-    -moz-box-shadow: -1px 10px 48px -4px rgba(0,0,0,0.75);
-    box-shadow: -1px 10px 48px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 10px 10px -4px rgba(0,0,0,0.35);
+    -moz-box-shadow: -1px 10px 10px -4px rgba(0,0,0,0.35);
+    box-shadow: -1px 10px 10px -4px rgba(0,0,0,0.35);
     font-family: "Comic Sans MS";
     border-radius: 30%;
-    width: 15%;
+    width: 12%;
+    height: 13%;
     /*padding: 7px 10px 8px;*/
-    height: 20%;
+    /*height: 20%;*/
     font-size: 25px;
     background-color: #1ed6f0;
     opacity: 0.8;
@@ -11041,9 +11062,9 @@ a.text-dark:focus {
     cursor:pointer;}
 
 .quantity.buttons_added .minus {
-    -webkit-box-shadow: -1px 10px 48px -4px rgba(0,0,0,0.75);
-    -moz-box-shadow: -1px 10px 48px -4px rgba(0,0,0,0.75);
-    box-shadow: -1px 10px 48px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 10px 10px -4px rgba(0,0,0,0.35);
+    -moz-box-shadow: -1px 10px 10px -4px rgba(0,0,0,0.35);
+    box-shadow: -1px 10px 10px -4px rgba(0,0,0,0.35);
     border-right: 0;
     background-color: red;
 }
@@ -11067,11 +11088,26 @@ a.text-dark:focus {
 
 
 .mm3{
-    /*margin: 8px;*/
+    /*!*margin: 8px;*!width: 100%;*/
+    /*display: block;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    display: block;
+
+    /*column-count: 3;    */
+    /*width: 100%;*/
+    /*column-count: 2;*/
+    /*overflow: auto;*/
+
+
 }
 .mm3-column{
+    /*display:inline-flex;*/
     display: grid;
-    grid-template-columns: auto auto auto;
+
+    column-count: 3;
+
+    /*grid-template-columns: auto auto auto;*/
     /*margin: 50px;*/
     /*padding: 6%;*/
 

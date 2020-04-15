@@ -170,3 +170,4 @@ $_SESSION['datecode'] = date('dmYhm');
 </div>
 
 
+@include('layouts.footer')

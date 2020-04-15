@@ -10,6 +10,16 @@ if ($conn->connect_error) {
 $product = str_replace('-',' ',$product);
 
 
+if(isset($_SESSION['addedtocart'])){
+    $val= $_SESSION['addedtocart'];
+    $_SESSION['addedtocart']="no";
+    }
+    else{
+        $val="no";
+        }
+
+
+
 
 $result = $conn->query("SELECT name,preisShopKlein, gewichtKlein,gewichtGross,gewichtMedium,preisShopMedium, preisShopGross, description1,i1,protein,carbs,fett,kalorien FROM produccts where name='$product'");
 $row = mysqli_fetch_assoc($result);
@@ -57,92 +67,16 @@ $fett=$row['fett'];
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
 </head>
 
-<body>
-<header>
-
-
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-
-
-                <a style="position: relative; left: 46%" class="navbar-brand" href="{{ url('/welcome') }}">
-                    <img style="width: 150px" src="/imagenes/logogofoody.png">
-                    {{--                    {{ config('app.name', 'asd') }}--}}
-                </a>
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        <ul class="navbar-nav mr-auto">
-                            <!-- Authentication Links -->
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="/welcome">Home</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="/shop-Auswahl">Wochenpläne</a>
-                            </li>
-                        </ul>
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-
-                    </ul>
-                    <li class="nav-item">
-                        <a  class="nav-link" href="/overview"> <img style="width: 40px" src="imagenes/carrito.png"> </a>
-                    </li>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            {{--            @yield('content')--}}
-        </main>
-    </div>
-</header>
+<body>@include('layouts.header')
+<h4>@include('flash::message')
 
 <div class="mm3">
 
-    <h4>@include('flash::message')</h4>
+
 
 </div>
 
@@ -155,7 +89,7 @@ $fett=$row['fett'];
         <!-- Left Column / Headphones Image -->
 
         <div class="left-column">
-            <img style="border-radius: 30%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 20px 0 rgba(0, 0, 0, 0.49);;"src="data:image/jpeg;base64, <?php echo base64_encode($row['i1']); ?>" >
+            <img style="width: 30%;border-radius: 30%;box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 10px 15px 0 rgba(0, 0, 0, 0.49);;"src="data:image/jpeg;base64, <?php echo base64_encode($row['i1']); ?>" >
         </div>
 
 
@@ -199,7 +133,7 @@ $fett=$row['fett'];
             </tr>
         </table>
 
-    <br> <br>  <br>
+    <br> <br>
         @csrf
             <form class="product-configuration" method="post" action="/sample-product-back">
                 @csrf
@@ -213,16 +147,18 @@ $fett=$row['fett'];
                         <option class= "button-sizes" value="gross" name="gross" id="gross" >gross ({{$_SESSION['gewichtGross']}}g) </option>
 
                     </select>
+
                     <br>
-                    <br>
-                    <br>
+
+
+
                     <br>
 
                     <div class="product-price">
                         <h2 id="priceup" name="priceup"> <?php echo $_SESSION['preisShopMedium']; ?>  CHF / Portion</h2>
                         {{--                <a href="/sample-product-back" class="cart-btn">Add to cart</a>--}}
                     </div>
-        <br>
+
                     <br>
 
 {{--                    <select hidden id="prodname" name="prodname" type="text">--}}
@@ -230,7 +166,7 @@ $fett=$row['fett'];
 
 {{--                    </select>--}}
 
-                    <div class="quantity buttons_added">
+                    <div class="quantity buttons_added demo-desc">
                         <input type="button" value="-" class="minus">
                         <input type="number" step="1" min="1" max="" value="1" name="quantity"  title="Qty" class="input-text qty text" size="4" pattern="" inputmode="">
                         <input type="button" value="+" class="plus">
@@ -248,7 +184,7 @@ $fett=$row['fett'];
                     <input type="hidden" value="{{$product}}" name="nameid" id="nameid">
 
 
-                    <button class="btn btn-success" type="submit" href="/sample-product-back" > In Warenkorb </button>
+                    <button id="warenkorb" value="{{$val}}" name="warenkorb" class=" btn btn-success" type="submit" href="/sample-product-back" > In Warenkorb </button>
                 </div>
             </form>
         <br>
@@ -300,18 +236,8 @@ $fett=$row['fett'];
 
 
 
-<footer style="background-color: lightgray">
-    <div class="footer-content container">
-        <div class="made-with">With <i class="fa fa-heart"></i> by FitFit</div>
-        <ul>
-            <li>Follow Me:</li>
-            <li><a href="#"><i class="fa fa-globe"></i></a></li>
-            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-            <li><a href="#"><i class="fa fa-github"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-        </ul>
-    </div> <!-- end footer-content -->
-</footer>
+
+@include('layouts.footer')
 
 
 </body>
@@ -323,18 +249,26 @@ $fett=$row['fett'];
 
     <script>
 
+
+
         $(document).ready(function() {
 
+            if(document.getElementsByName('warenkorb')[0].value == "added"){
+                // alert("1");
+
+                document.getElementsByName('carrito')[0].src = "/imagenes/carro1.png";
+
+            }
+
             document.getElementById("selectsize").style.visibility = "visible";
+            // document.getElementById("selectsize2").style.visibility = "hidden";
 
         });
 
         function abc(meal, size) {
-            products = ["Chicken mit Reis", "Pro 480g: kCal 652, Carbs 73g, Eiweiss 37g, Fett 24g", "price", "description1",
-                "Paella Marisco", "Pro 480g: kCal 622, Carbs 72g, Eiweiss 32g, Fett 22g", "Paella mit Fish und ....",
-                "Wurst mit Champignons und Vegetables", "Pro 480g: kCal 632, Carbs 73g, Eiweiss 33g, Fett 23g", "description1",
 
 
+            products = [
                 "Pouletbrust mit Basmatireis und Gemüse",
                 "Hühnerbrust begleitet von Reis zur sowie von einer Gemüsemischung (Brokkoli, grüne Bohnen, Karotten und rote Paprika).",
 
@@ -357,9 +291,54 @@ $fett=$row['fett'];
                 "8.2", //Eiweiss,
                 "0.9", // Fett",
 
+                "Rinderfiletstreifen mit Penne und Gemüse",
+                "Rindfleisch mager geschnetzelt begleitet von Penne und einer Portion unserer Gemüsemischung, bestehend aus Brokkoli, grünen Bohnen, Karotten und rotem Pfeffer.",
+
+                "13.90", //preis für klein shop 12.20
+                "16.90", //preis für mid shop 13.70
+                "19.80", //preis für gross shop 18.90
+
+                "13.00", //preis für klein PLAN 11.00
+                "16.00", //presi med PLAN   14.00
+                "18.90",   // p gross PLAN     17.00
+
+                "330",   // gewicht kelin
+                "420",   // gewicht medium
+                "520",   // gewicht gross
+
+
+                //nährwerte pro 100g
+                "188",// kCal, /
+                "17,8", //Carbs,
+                "13.3 ", //Eiweiss,
+                "2.8", // Fett",
+
+                "Norwegischer Lachs mit Kartofferln und Gemüse",
+                "Lachs norwegischen Ursprungs, begleitet von Bratkartoffeln sowie einem Teil unserer Gemüsemischung, bestehend aus Brokkoli, grünen Bohnen, Karotten und rotem Pfeffer.",
+
+                "14.90", //preis für klein shop 12.20
+                "15.90", //preis für mid shop 13.70
+                "20.80", //preis für gross shop 18.90
+
+                "14.00", //preis für klein PLAN 11.00
+                "17.00", //presi med PLAN   14.00
+                "19.90",   // p gross PLAN     17.00
+
+                "330",   // gewicht kelin
+                "420",   // gewicht medium
+                "520",   // gewicht gross
+
+
+                //nährwerte pro 100g
+                "128",// kCal, / 52,5  47
+                "7.8", //Carbs,  5
+                "8.9 ", //Eiweiss, 7.4   1
+                "2.4", // Fett",  2.5  3
+
+                "Bestehend aus 40% Lachs, 40% Kartoffeln und 20% Gemüse"
+
 
             ];
-
 
             for (index = 0; index < products.length; ++index) {
 
@@ -429,6 +408,11 @@ $fett=$row['fett'];
             // var k= document.getElementById('priceup').innerText;
             // k = k + k;
             // alert(k);
+            {{--if(--}}
+            {{--<?php--}}
+            {{--echo ;--}}
+            {{--?>)--}}
+
             var a = jQuery(this).closest(".quantity").find(".qty"),
                 b = parseFloat(a.val()),
                 c = parseFloat(a.attr("max")),

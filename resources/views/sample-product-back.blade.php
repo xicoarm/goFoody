@@ -2,7 +2,7 @@
 
 use Anam\Phpcart\Cart;
 
-
+$_SESSION['addedtocart'] = "added";
 
 if(isset($_POST['selectsize'])){
     $_SESSION['selectsize']= $_POST['selectsize'];

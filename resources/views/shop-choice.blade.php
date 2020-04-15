@@ -211,29 +211,6 @@
         </div>
 
 
-<script>
-    // Add active class to the current button (highlight it)
-function choice(id) {
-
-    document.getElementById(id).classList.add('info-active');
-
-    // document.getElementById(id).classList.remove('MyClass');
-    // document.getElementById(id).className("info-active");
-
-    }
-
-    function choicedark(id) {
-
-        document.getElementById(id).classList.add('info-active-dark');
-
-        // document.getElementById(id).classList.remove('MyClass');
-        // document.getElementById(id).className("info-active");
-
-    }
-</script>
-
-
-
 
 
 
@@ -253,48 +230,39 @@ function choice(id) {
 
 <br><br><br>
 
-<div class="blog-section">
 
-    <div class="container">
-        <h1 class="text-center">Wie funktioniert es? </h1>
 
-        <p class="section-description text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et sed accusantium maxime dolore cum provident itaque ea, a architecto alias quod reiciendis ex ullam id, soluta deleniti eaque neque perferendis.</p>
+@include('layouts.footer')
 
-        <div class="blog-posts">
-            <div class="blog-post" id="blog1">
-                <a href="#"><img src="img/blog1.png" alt="blog image"></a>
-                <a href="#"><h2 class="blog-title">Erfahrungen Sasha...</h2></a>
-                <div class="blog-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est ullam, ipsa quasi?</div>
-            </div>
-            <div class="blog-post" id="blog2">
-                <a href="#"><img src="img/blog2.png" alt="blog image"></a>
-                <a href="#"><h2 class="blog-title">Foto Küche oder mitarb</h2></a>
-                <div class="blog-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est ullam, ipsa quasi?</div>
-            </div>
-            <div class="blog-post" id="blog3">
-                <a href="#"><img src="img/blog3.png" alt="blog image"></a>
-                <a href="#"><h2 class="blog-title">ärztlich iöbis</h2></a>
-                <div class="blog-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est ullam, ipsa quasi?</div>
-            </div>
-        </div> <!-- end blog-posts -->
-    </div> <!-- end container -->
-</div> <!-- end blog-section -->
-</div>
+
 </body>
-
-<footer style="background-color: lightgray">
-    <div class="footer-content container">
-        <div class="made-with">With <i class="fa fa-heart"></i> by FitFit</div>
-        <ul>
-            <li>Follow Me:</li>
-            <li><a href="#"><i class="fa fa-globe"></i></a></li>
-            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-            <li><a href="#"><i class="fa fa-github"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-        </ul>
-    </div> <!-- end footer-content -->
-</footer>
-
-
-{{--        </body>--}}
 </html>
+
+
+
+
+
+
+
+
+
+<script>
+    // Add active class to the current button (highlight it)
+    function choice(id) {
+
+        document.getElementById(id).classList.add('info-active');
+
+        // document.getElementById(id).classList.remove('MyClass');
+        // document.getElementById(id).className("info-active");
+
+    }
+
+    function choicedark(id) {
+
+        document.getElementById(id).classList.add('info-active-dark');
+
+        // document.getElementById(id).classList.remove('MyClass');
+        // document.getElementById(id).className("info-active");
+
+    }
+</script>

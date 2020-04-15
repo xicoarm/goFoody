@@ -371,164 +371,18 @@
         </div>
     </form>
 
+<br>
+<br>
+<br>
+<br>
 
-
+<br>
+@include('layouts.footer')
 
 
 
 </body>
 </html>
 
-
-
-<script type="text/javascript">
-
-
-    function picturemChickenm2(textid, imageid, sectionid, mealsize) {
-
-        products = ["Chicken mit Reis", "Pro 480g: kCal 652, Carbs 73g, Eiweiss 37g, Fett 24g", "price", "description1",
-            "Paella Marisco", "Pro 480g: kCal 622, Carbs 72g, Eiweiss 32g, Fett 22g", "Paella mit Fish und ....",
-            "Wurst mit Champignons und Vegetables", "Pro 480g: kCal 632, Carbs 73g, Eiweiss 33g, Fett 23g", "description1",
-
-
-            "Pouletbrust mit Basmatireis und Gemüse",
-            "Hühnerbrust begleitet von Reis zur sowie von einer Gemüsemischung (Brokkoli, grüne Bohnen, Karotten und rote Paprika).",
-
-            "11.90", //preis für klein shop 12.20
-            "14.90", //preis für mid shop 13.70
-            "17.80", //preis für gross shop 18.90
-
-            "10.90", //preis für klein PLAN 11.00
-            "13.90", //presi med PLAN   14.00
-            "16.80",   // p gross PLAN     17.00
-
-            //klein-mid-g gramm
-            "350",   // p gross PLAN     17.00
-            "450",   // p gross PLAN     17.00
-            "550",   // p gross PLAN     17.00
-
-            //nährwerte pro 100g
-            "106.4",// kCal,
-            "16", //Carbs,
-            "8.2", //Eiweiss,
-            "0.9", // Fett",
-
-
-        ];
-
-
-        var pic = "imagenes\\" + document.getElementById(sectionid).value + ".png";
-        document.getElementById(imageid).src = pic.replace();
-        document.getElementById(imageid).style.display = 'block';
-
-        for (index = 0; index < products.length; ++index) {
-
-            if (mealsize == "klein") {
-
-                var st= "Portion: "+ products[index + 8 ]+"g, " + "kCal: " + ((products[index + 8 ]/100) *products[index + 11 ]).toFixed(1)+ ", " + "Carbs: " +((products[index + 8]/100) * products[index + 12 ]).toFixed(1) + "g, "
-                    + "Eiweiss : " +((products[index + 8 ]/100) * products[index + 13 ]).toFixed(1)+"g, " + "Fett: " + ((products[index + 8 ]/100) *products[index + 14 ]).toFixed(1)+"g";
-
-                if (products[index] == document.getElementById(sectionid).value) {
-
-                    document.getElementById(textid).innerText = st.toString();
-
-
-                }
-            }
-
-            if (mealsize == "medium") {
-
-
-                var st= "Portion: "+ products[index + 9 ]+"g, " + "kCal: " + ((products[index + 9 ]/100) *products[index + 11 ]).toFixed(1)+ ", " + "Carbs: " +((products[index + 9]/100) * products[index + 12 ]).toFixed(1) + "g, "
-                    + "Eiweiss : " +((products[index + 9 ]/100) * products[index + 13 ]).toFixed(1)+"g, " + "Fett: " + ((products[index + 9 ]/100) *products[index + 14 ]).toFixed(1)+"g";
-
-                if (products[index] == document.getElementById(sectionid).value) {
-
-                    document.getElementById(textid).innerText = st.toString();
-
-                    // document.getElementById(textid).innerText = (products[index + 6]).toString();
-                    // document.getElementById(text).style.display = 'initial';
-                    // document.getElementById(textid).style.border.co;
-                }
-            }
-
-
-            if (mealsize == "gross") {
-
-                var st= "Portion: "+ products[index + 10 ]+"g, " + "kCal: " + ((products[index + 10 ]/100) *products[index + 11 ]).toFixed(1)+ ", " + "Carbs: " +((products[index + 10]/100) * products[index + 12 ]).toFixed(1) + "g, "
-                    + "Eiweiss : " +((products[index + 10 ]/100) * products[index + 13 ]).toFixed(1)+"g, " + "Fett: " + ((products[index + 10 ]/100) *products[index + 14 ]).toFixed(1)+"g";
-
-                if (products[index] == document.getElementById(sectionid).value) {
-
-                    document.getElementById(textid).innerText = st.toString();
-
-                    // document.getElementById(textid).innerText = (products[index + 6]).toString();
-                    // document.getElementById(text).style.display = 'initial';
-                    // document.getElementById(textid).style.border.co;
-                }
-            }
-
-
-        }
-    }
-
-
-    //
-    // function picturemChickenm3(sectionid, wheretodisplay, mealsize) {
-    //
-    //     products = ["Chicken mit Reis", "Pro 480g: kCal 652, Carbs 73g, Eiweiss 37g, Fett 24g", "price", "description1",
-    //         "Paella Marisco", "Pro 480g: kCal 622, Carbs 72g, Eiweiss 32g, Fett 22g", "Paella mit Fish und ....",
-    //         "Wurst mit Champignons und Vegetables", "Pro 480g: kCal 632, Carbs 73g, Eiweiss 33g, Fett 23g", "description1",
-    //
-    //
-    //         "Pouletbrust mit Basmatireis und Gemüse",
-    //         "Hühnerbrust begleitet von Reis zur sowie von einer Gemüsemischung (Brokkoli, grüne Bohnen, Karotten und rote Paprika).",
-    //
-    //         "11.90", //preis für klein shop 12.20
-    //         "14.90", //preis für mid shop 13.70
-    //         "17.80", //preis für gross shop 18.90
-    //
-    //         "10.90", //preis für klein PLAN 11.00
-    //         "13.90", //presi med PLAN   14.00
-    //         "16.80",   // p gross PLAN     17.00
-    //
-    //         //klein-mid-g gramm
-    //         "350",   // p gross PLAN     17.00
-    //         "450",   // p gross PLAN     17.00
-    //         "550",   // p gross PLAN     17.00
-    //
-    //         //nährwerte pro 100g
-    //         "106.4",// kCal,
-    //         "16", //Carbs,
-    //         "8.2", //Eiweiss,
-    //         "0.9", // Fett",
-    //
-    //
-    //
-    //
-    //
-    //     ];
-    //
-    //     alert("hhhh");
-    //     for (index = 0; index < products.length; ++index) {
-    //         if (products[index] == document.getElementById(sectionid).value) {
-    //
-    //
-    //                 if (mealsize == "klein") {
-    //                     document.getElementById(wheretodisplay).innerText = (products[index + 5]).toString();
-    //                 }
-    //                 if (mealsize == "medium") {
-    //                     document.getElementById(wheretodisplay).innerText = (products[index + 6]).toString();
-    //                 }
-    //                 if (mealsize == "gross") {
-    //                     document.getElementById(wheretodisplay).innerText = (products[index + 7]).toString();
-    //                 }
-    //
-    //             // document.getElementById(text).style.display = 'initial';
-    //             // document.getElementById(textid).style.border.co;
-    //         }
-    //     }
-    // }
-</script>
-
+@include('layouts/script')
 
