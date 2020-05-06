@@ -89,10 +89,17 @@ Route::get('/blanco', function () {
 
 Route::post('/Bezahlung-erfolgreich-Danke!', 'PaymentController@index');
 //Route::post('Bezahlung-erfolgreich-Danke!', [ 'as' => 'Bezahlung-erfolgreich-Danke!', 'uses' => '']);
+
+
+
+
+
 Route::post('/Wochenplan', 'ChoiceController@index');
 
 
+
 Route::post('/overview', function () {
+
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
@@ -106,7 +113,9 @@ Route::post('/overview', function () {
 
 //    $_POST['a2']
     return view('overviewBack');
+
 });
+
 
 
 

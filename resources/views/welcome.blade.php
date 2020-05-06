@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'asd') }}</title>
-
+    <link rel="icon" href="{!! asset('imagenes/facefoody.png') !!}"/>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -116,7 +116,7 @@
 
     <div style="position: relative; display: inline-block">
 
-    <img style="opacity: 0.8" src="imagenes/home-bg.jpg">
+    <img style="height: 700px;width: 100%;opacity: 0.8" src="imagenes/home-bg.jpg">
 
 {{--        <div class="text-over-image" style="background-color: pink;  padding: 20px; opacity: 0.95; border-radius: 50px">--}}
 
@@ -136,43 +136,184 @@
 
     </div>
 
+
+
+
     <p style="color: black" class="section-description text-center">Alle unsere Produkte sind frisch gekocht und ohne Konservanten.</p>
 
+    <br>
+    <br><br>
+    <br>
+    <div style="width: 100%;background: url(imagenes/nubegib.png) no-repeat;background-size: 120%; background-position-x: -150px">
 
-            <div>
+                <h3> Freshn'Foody übernimmt den Einkauf, das Waschen und Vorbereiten, sowie das Kochen und auch die Lieferung zu Ihnen nach Hause.   </h3>
+                <h3> Abwechslungsreiche Gerichte in verschieden Portionsgrössen gezielt auf Ihren Ernährungsplan sowie Nähstoff -und Kalorienbedarf </h3>
 
-<div>
+                <br>
+                <br>
+                <br>
 
-    <div>
-        <img  src="imagenes/kalorienarm.png">
+                <h1>
+                Wie funktioniert es?
+                </h1>
+
+                <br>
+                <br>
+                <br>
+
+
+
+                    <div>
+
+                        <h2>
+                            Sie wählen aus
+                        </h2>
+                        <img style="width: 200px"  src="imagenes/Neuer Ordner/portatil.png">
+
+                    </div>
+
+        <br>
+        <br>
+
+
+
+
+                    <div>
+                        <h2>
+                            Wir kochen und bereiten alles zu
+                        </h2>
+                        <img style="margin-left: 15px;width: 200px"  src="imagenes/Neuer Ordner/cazerola.png">
+                    </div>
+
+        <br>
+        <br>
+
+
+
+{{--                    <div>--}}
+
+{{--                        <img style="width: 200px" src="imagenes/Neuer Ordner/flechaabajo.png">--}}
+{{--                    </div>--}}
+
+                    <div>
+                        <h2>
+                            Wir liefern an Ihrem gewünschten Datum
+                        </h2>
+                        <img style="width: 200px"  src="imagenes/Neuer Ordner/repartidor.png">
+
+                    </div>
+
+                <br>
+                <br>
+
+
+                    <div>
+                        <h2>
+                            Gerichte bis zu 8 Tage gekühlt haltbar ohne konservierungsstoffe und zusatzstoffe. Aufwärmen und geniessen.
+                        </h2>
+                        <h2>
+
+                        </h2>
+                        <img style="margin-left: 15px;;width: 250px" src="imagenes/Neuer Ordner/micro.png">
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="width: 100%;border: 2px solid black; display: block; justify-content: center">
+
+
+    <div style="margin-left: 30px; margin-right: 30px;">
+
+
+
+
+    <h2>
+            Beispiel eines veganes low-fat 5x1 Wochenplan
+        </h2>
+
+{{--    <div style="margin-left: 10px;width: 100%;background: url(imagenes/avocado.jpg) no-repeat; background-size: 50%;--}}
+{{----}}
+{{--    box-shadow: 2px 2px 2px #ccc;--}}
+{{--      -moz-box-shadow: 2px 2px 2px #ccc;--}}
+{{--      -webkit-box-shadow: 2px 2px 2px #ccc;--}}
+{{--      -khtml-box-shadow: 2px 2px 2px #ccc;">--}}
+
+        <br>
+        <br>
+
+        <img style="margin-left: 10px;width: 800px;
+
+        ;box-shadow: 2px 2px 2px #ccc;
+      -moz-box-shadow: 2px 2px 2px #ccc;
+      -webkit-box-shadow: 2px 2px 2px #ccc;
+      -khtml-box-shadow: 2px 2px 2px #ccc;" src="imagenes/tisch-svg1.PNG">
+
+
+
+    </div>
+        <br>
+        <br>
+
+
+
+
+</div>
+
+
+    <div style="margin-left: 30px; margin-right: 30px;">
+
+
+        <h2>
+            5x2 Wochenplan gezielt auf den Muskelaufbau
+        </h2>
+
+        <div style="width: 100%;background: url(imagenes/tisch2.png) no-repeat; background-size: 100%; height: 325px;box-shadow: 2px 2px 2px #ccc;
+      -moz-box-shadow: 2px 2px 2px #ccc;
+      -webkit-box-shadow: 2px 2px 2px #ccc;
+      -khtml-box-shadow: 2px 2px 2px #ccc;">
+
+            <br>
+            <br>
+
+            <img style="margin-left: 10px;width: 800px;
+
+        ;box-shadow: 2px 2px 2px #ccc;
+      -moz-box-shadow: 2px 2px 2px #ccc;
+      -webkit-box-shadow: 2px 2px 2px #ccc;
+      -khtml-box-shadow: 2px 2px 2px #ccc;" src="imagenes/tisch-svg1.PNG">
+
+
+
+        </div>
+        <br>
+        <br>
+
+
+
+
     </div>
 
-    <div>
-        <img  src="imagenes/muskelaufbau.png">
-    </div>
-
-    <div>
-        <img  src="imagenes/vegan.png">
-    </div>
-
-    <div>
-        <img src="imagenes/ausgewogen.png">
-    </div>
 
 
-</div></div>
 
 
-<div>
+</div>
 
 
-    <div>
-
-        <img src="imagenes/tisch.PNG">
-{{--        <br>--}}
-        <button class="button1"> Wochenplan erstellen</button>
-
-    </div>
+    <button class="button1"> Wochenplan erstellen</button>
+    <br>
+    <br>
 
     <div>
         <img src="imagenes/carte.PNG">

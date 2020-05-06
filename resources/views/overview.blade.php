@@ -1,4 +1,7 @@
+<?php
 
+
+?>
 <!doctype html>
 <html lang="de">
 <head>
@@ -136,19 +139,39 @@
 //                }
 
 //            $cart= $_SESSION['cart'];
-            $items = $_SESSION['cart']->items();
+            $items = $_SESSION['cart']->getItems();
 //                    $_SESSION['cart']->clear();
+
             foreach($items as $result) {
+
+                if($result->plan != "no"){
+
+                    echo nl2br("\n");
+
+                    echo nl2br(str_replace(".", "\n", $result->plan));
+                                          }
+
+            echo "<br>";echo "<br>";
+
                 echo $result->name;
+            echo nl2br("\n");
 
                 if($result->quantity != 1){
-                    echo  str_repeat('&nbsp;', 3)."x ";
+//                    echo  str_repeat('&nbsp;', 3);
                     echo $result->quantity;
 
                 }
-                echo str_repeat('&nbsp;', 3);
+
                 $k= ($result->size );
-                echo $k;
+
+            if($result->quantity != 1){
+               echo "x ".$k;
+
+            }
+                else{
+                    echo $k;
+
+                }
 
 
                  if(true){ ?>
@@ -340,18 +363,25 @@
     </div>
 </div>
 
+
+<div style="margin-top: 5%">
+@include('layouts.footer')
+</div>
 </body>
 </html>
-
-
-@include('layouts.footer')
-
 
 
 
 
 
 <script>
+
+
+
+
+
+
+
     //auto expand textarea
     function adjust_textarea(h) {
         h.style.height = "20px";

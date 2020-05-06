@@ -8,8 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'asd') }}</title>
-
+    <title>{{ config('app.name', "Freshn'Foody'") }}</title>
+    <link rel="icon" href="{!! asset('imagenes/facefoody.png') !!}"/>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -101,12 +101,11 @@
         </main>
     </div>
 </header>
-
+</body>
 
 
 
 <form>
-    <form>
 
         <p style="color: black" class="section-description text-center">Alle unsere Produkte sind frisch gekocht und ohne Konservanten.</p>
         <br>
@@ -116,7 +115,7 @@
 
 
 
-        <div class="mm3">
+        <div id="p-flex">
 
 
                 <?php
@@ -137,82 +136,142 @@
                     $_SESSION['i'] = 0;
                     $i=0;
                     $_SESSION['ii'] = 0;
-                    echo '
-<div onclick="shop(this.id)" value="'.$row['name'].'" id="'.$link.'" style="cursor: pointer;border-radius: 12px;  min-width: 10%">
+                    echo ('
+<div class="p-flex" onclick="shop(this.id)" value="'.$row['name'].'" id="'.$link.'" style="margin-left:  15px; margin-right: 15px;cursor: pointer;border-radius: 12px;">
 
 
 
 
 
 
-     <div style="font-size:25px; font-weight:bold">
 
-            <div>
-                         <img style="border-radius: 20%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 20px 0 rgba(0, 0, 0, 0.49);;" src="data:image/jpeg;base64,'.base64_encode($row['i1'] ).'" height="215" width="250" >
 
-           </div>
+                         <img class="p-img" style="position: relative;border-radius: 20%; height: 200px; width: 280px ;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 20px 0 rgba(0, 0, 0, 0.49)" src="data:image/jpeg;base64,'.base64_encode($row['i1'] ).'" >
 
-            <div>
+
+        <div class="p-desc">
+            <br>
+
                         <h2 style="color: black;">'.$row['name'].'</h2>
+            <br>
 
                         <h3> '.$row['preisShopMedium'].' CHF </h3>
-           </div>
-
-
-            <div>
+            <br>
 
 
 
-            <table style=" display: inline-block; padding: 4px; text-align: center; background-color: whitesmoke">
-
-<thead>
-<tr>
-
-<th>Pro 100g: </b> &emsp;</th>
-<th>kCal &ensp;</th>
-<th>Eiweiss &ensp; </th>
-<th>Carbs &ensp; </th>
-<th>Fett </th>
-
-</tr>
-</thead>
-
-<tbody>
-<tr>
-                                <td>&emsp;</td>
-                            <td>'.$row['kalorien'].'&ensp;</td>
-                             <td>'.$row['protein'].'&ensp;&ensp;</td>
-                            <td>'.$row['carbs'].'&ensp;</td>
-                            <td>'.$row['fett'].'</td>
+        </div>
 
 
 
-</tr>
-                </table>
+
+
+
+<div id="p-flex" >
+<h1 style="font-size: 14px; font-weight: bold;"> 100g: </h1>
+<div>
+
+
+                    <h2 style="font-size: 13px"> kCal</h2>
+
+            <div style="background-color: forestgreen; opacity: 0.7"  class="circle" >
+
+
+
+                <div class="tt">'.$row['kalorien'].'</div>
+
+
+
+
+
             </div>
 
+        </div>
 
-<div style="margin:40px">
+
+
+<div>
+                    <h2 style="font-size: 13px"> Eiweiss</h2>
+
+            <div style="background-color: cornflowerblue;opacity: 0.7" class="circle" >
+
+
+
+                <div class="tt">'.$row['protein'].'g</div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+<div>
+                    <h2 style="font-size: 13px"> Carbs</h2>
+
+            <div style="background-color: darkorange; opacity: 0.7"  class="circle" >
+
+
+
+                <div class="tt">'.$row['carbs'].'g</div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+<div>
+                    <h2 style="font-size: 13px"> Fett</h2>
+
+            <div style="background-color: indianred; opacity: 0.7" class="circle" >
+
+
+
+                <div class="tt">'.$row['fett'].'g</div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+</div>
+<br>
+
+
+
 
   <a href="/shop/'.$link.'" style="width: 40%" class="btn btn-info"> Weiter </a>
 
 
-    </div>
+<br><br>
+
+
+</div>
 
 
 
-
-
-
-';
+');
                     $i=$i+1;
                 }
 
                 ?>
-        </div>
-{{--                </div> <!-- end products -->--}}
+
+                </div> <!-- end products -->
     </form>
-</form>
 
 
 
@@ -261,20 +320,7 @@
 {{--                    <div onclick="shop(this.id)" value="'.$row['name'].'" id="'.$link.'" style=" width: 30% cursor: pointer;border-radius: 12px; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19); min-width: 10%">--}}
 
 
-{{--            <script>--}}
 
-{{--function shop(link){--}}
-
-{{--    var str1 = "shop/";--}}
-{{--var str2 = link;--}}
-{{--var res = str1.concat(str2);--}}
-
-{{--      window.location = res;--}}
-{{--//  return false;--}}
-
-{{--}--}}
-
-{{--            </script>--}}
 
 
 
@@ -371,13 +417,10 @@
 
 
 
-        <div class="text-center button-container">
-            <br>
-            <br>
-            <br>
 
-        </div>
 
+
+</html>
 
 
     <script type="text/javascript">
@@ -390,16 +433,22 @@
 
             items.push(item);
 
-
-
-
-
-
-
-
-
         }
 
+        {{--            <script>--}}
+
+        function shop(link){
+        //
+            var str1 = "shop/";
+        var str2 = link;
+        var res = str1.concat(str2);
+        //
+              window.location = res;
+        //  return false;
+        //
+        }
+        //
+        {{--            </script>--}}
     </script>
 
                 <br>
@@ -415,8 +464,4 @@
 @include('layouts.footer')
 
 
-
-</body>
-</body>
-</html>
 

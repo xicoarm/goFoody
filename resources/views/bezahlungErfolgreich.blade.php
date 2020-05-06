@@ -12,8 +12,7 @@ require_once(__DIR__.'/../../../vendor/autoload.php');
 $cart = $_SESSION['cart'];
 if(isset($_POST['stripeToken'])) {
 
-    $prices= $_SESSION["pricearray"];
-    $orders= $_SESSION["orderarray"];
+
 
     $priceX100= (float)$cart->getTotal() * 100;
 
@@ -138,6 +137,8 @@ $_SESSION['datecode'] = date('dmYhm');
             <?php
             $dd= (string)$_SESSION['datecode'];
             echo  nl2br ("$lieferadresse \n $stadt,  $plz  \n  Tel.: $handynummer \n  Bestellungsnr.: $dd");
+
+
             ?>
 
 

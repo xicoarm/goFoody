@@ -106,16 +106,17 @@
 <div>
 
     <div>
-        <h1> Vielen Dank f&#252;r Ihren Einkauf! </h1>
+        <h1 style="font-weight: bold"> Vielen Dank f&#252;r Ihren Einkauf! </h1>
     </div>
     <br>
 
     <h2> Ihre Daten: </h2>
 
-
-    <div>
+    <br>
+    <h3>
 
         <?php
+        $_SESSION['cart']->clear();
 
         $vorname= $_SESSION['name'];
         $nachname= $_SESSION['nachname'];
@@ -131,32 +132,37 @@
         echo  nl2br ("$vorname \n $nachname \n  $email");
 
         ?>
+    </h3>
+<br>
 
-
-        <div style=" border: 3px solid bisque">
-
+        <div style=" background-color:cornflowerblue; opacity: 0.7">
+        <h3>
             <?php
             $dd= (string)$_SESSION['datecode'];
-            echo  nl2br ("$lieferadresse \n $stadt,  $plz  \n  Tel.: $handynummer \n  Bestellungsnr.: $dd");
+            echo  nl2br ("$lieferadresse \n $stadt,  $plz  \n  Tel.: $handynummer \n ");
             ?>
 
 
-
+</h3>
         </div>
 
-        <!----> </div>
+        <!---->
+    <div style="background-color: white">
+        <h3 style="font-size: 12px">Sie werden eine Email mit der Bestellungsnr. + Details erhalten (schauen Sie auch im Spam-Ordner) </h3>
+        <br>
+        <br>
+        <div>
+
+            <h1 style="color: deepskyblue"> ...bis bald!</h1>
+        </div>
 
 
-    <div>
-        <img style="position: absolute;left: 35%" src="imagenes/deliverycar.png">
-
+        <div>
+        <img  src="imagenes/face.png">
+            <br>
+            <br>
     </div>
-    <br>
-<br>
-    <div>
 
-        <h1 style="color: deepskyblue"> ...bis bald!</h1>
-    </div>
 
 
 
@@ -167,7 +173,7 @@
 
     </div>
 
-
+</div>
 
 @include('layouts.footer')
 

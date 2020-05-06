@@ -72,7 +72,9 @@ $name = $_SESSION['name'];
                         'name'     => $name,
                         'quantity' => $_POST['quantity'],
                         'price'    => $news[$price],
-                        'size'      =>$_POST['selectsize']
+                        'size'      =>$_POST['selectsize'],
+                                        'plan'     => "no",
+
                     ]);
 
                         }
@@ -83,7 +85,9 @@ $name = $_SESSION['name'];
                         'name'     => $name,
                         'quantity' => $_POST['quantity'],
                         'price'    => $news[$price],
-                        'size'      =>$_POST['selectsize']
+                        'size'      =>$_POST['selectsize'],
+                                        'plan'     => "no",
+
                     ]);
                 }
 

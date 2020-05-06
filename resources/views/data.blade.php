@@ -13,6 +13,7 @@ $email= $_POST['email'];
 $handynummer= $_POST['handynummer'];
 
 $abc='123';
+$_SESSION['cart']->clear();
 
 $mail = new PHPMailer(true);
 
@@ -20,10 +21,10 @@ try {
     //Server settings
 
     $mail->isSMTP();                                            // Send using SMTP
-    $mail->Host       = 'mail.hgeeqikn.lucusvirtual.es';                    // Set the SMTP server to send through
+    $mail->Host       = 'smpt.gmail.com';                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'user@hgeeqikn.lucusvirtual.es';                     // SMTP username
-    $mail->Password   = '68699499a';                               // SMTP password
+    $mail->Username   = 'araareg@gmail.com';                     // SMTP username
+    $mail->Password   = '68699499a$';                               // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
     $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
